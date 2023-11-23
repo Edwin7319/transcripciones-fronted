@@ -6,3 +6,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// primeng
+@import "primeng/resources/themes/lara-dark-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+// toaster
+@import 'ngx-toastr/toastr';
+
+// animations
+@import "animate.css";
