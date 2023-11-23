@@ -1,0 +1,75 @@
+<div class="flex flex-col" *ngIf="control">
+  <div
+    class="border bg-gray-50 rounded-md px-3 py-2 shadow-xs focus-within:ring-1 focus-within:ring-transcription-500 focus-within:border-transcription-500"
+    [ngClass]="{
+      'border-red-300': control.errors && control.touched,
+      'border-gray-300': !control.errors && !control.touched,
+      'bg-gray-50': !readonly,
+      'bg-gray-200 border-gray-400': readonly
+    }"
+    [formGroup]="formGroup"
+    [class.invalid]="control.touched && control.invalid"
+  >
+    <label
+      class="block text-xs font-medium text-gray-900"
+      [ngClass]="{
+        'text-red-500': control.errors && control.touched
+      }"
+      [for]="id"
+      *ngIf="label"
+    >
+      {{ label }}{{ required ? '*' : '' }}
+    </label>
+    <input
+      *ngIf="!isTextarea && !showMask"
+      [type]="type"
+      [placeholder]="placeholder"
+      [attr.name]="id"
+      [attr.id]="id"
+      [formControl]="control"
+      [readOnly]="readonly"
+      class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm bg-gray-50"
+      autocomplete="off"
+      [ngClass]="{ 'bg-gray-50': !readonly, 'bg-gray-200 border-gray-400': readonly }"
+    />
+    <input
+      *ngIf="!isTextarea && showMask"
+      [type]="type"
+      [placeholder]="placeholder"
+      [attr.name]="id"
+      [attr.id]="id"
+      [formControl]="control"
+      [readOnly]="readonly"
+      [mask]="maskType"
+      [suffix]="maskSuffix"
+      [prefix]="maskPrefix"
+      [thousandSeparator]="maskThousandSeparator"
+      class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm bg-gray-50"
+      autocomplete="off"
+      [ngClass]="{ 'bg-gray-50': !readonly, 'bg-gray-200 border-gray-400': readonly }"
+    />
+    <textarea
+      *ngIf="isTextarea"
+      [placeholder]="placeholder"
+      [attr.name]="id"
+      [attr.id]="id"
+      [formControl]="control"
+      [rows]="textareaRows"
+      [readOnly]="readonly"
+      class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm bg-gray-50"
+      autocomplete="off"
+      [ngClass]="{ 'bg-gray-50': !readonly, 'bg-gray-200 border-gray-400': readonly }"
+    >
+    </textarea>
+  </div>
+  <div>
+    <span class="text-xs text-gray-400 font-normal">
+      {{ help }}
+    </span>
+  </div>
+  <div>
+    <span class="text-xs text-red-400 font-normal" *ngIf="control.errors && control.touched">
+      {{ control.errors[objectError.keys(control.errors)[0]] }}
+    </span>
+  </div>
+</div>
