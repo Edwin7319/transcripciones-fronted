@@ -7,6 +7,12 @@ const routes: Routes = [
   {
     path: 'descuentos',
     loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
+    data: {
+      breadcrumb: {
+        label: 'Inicio',
+        info: 'home',
+      },
+    },
   },
   {
     path: '',
