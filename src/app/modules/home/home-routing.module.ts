@@ -9,6 +9,15 @@ const routes: Routes = [
     component: HomePageComponent,
   },
   {
+    path: 'registro-de-audio',
+    loadChildren: () => import('../audio-recording/audio-recording.module').then((m) => m.AudioRecordingModule),
+    data: {
+      breadcrumb: {
+        label: 'Registro de audio',
+      },
+    },
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full',

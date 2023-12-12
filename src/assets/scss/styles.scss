@@ -15,14 +15,19 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
-// angular-material
-@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
-
 // toaster
 @import 'ngx-toastr/toastr';
+
+//// ng-select
+@import "@ng-select/ng-select/themes/default.theme.css";
 
 // animations
 @import "animate.css";
 
 
+// partial
 @import "partial/scrollBar";
+@import "external/primeNg";
+@import "partial/table";
+@import "partial/breadcrumb";
+@import "partial/autocomplete";

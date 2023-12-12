@@ -1,0 +1,111 @@
+<div class="md:px-6 px-1 md:py-2">
+  <div mat-dialog-title class="text-center border-b border-b-gray-200">
+    <span class="text-transcription-500 font-bold text-2xl">{{ !data ? 'Nuevo' : 'Editar' }} registro de audio</span>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form" (keyup.enter)="eventSubmit()">
+      <div class="grid grid-cols-1 gap-4 mt-10">
+        <div>
+          <app-input
+            id="name"
+            label="Nombre"
+            placeholder="Ej: Audio de prueba"
+            help="Ingrese el nombre de audio a registrar"
+            [type]="'text'"
+            [formGroup]="form"
+            [required]="true"
+          />
+        </div>
+        <div class="flex w-full justify-center items-center">
+          <div class="flex items-center justify-center w-full">
+            <label
+              for="dropzone-file"
+              class="flex flex-col items-center justify-center w-full h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+            >
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <ng-container *ngIf="!selectedFile">
+                  <svg
+                    class="w-8 h-8 mb-4 text-gray-500"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                  <p class="mb-2 text-sm text-gray-500">
+                    <span class="font-semibold">Clic para subir</span> o arrastre un archivo
+                  </p>
+                  <p class="text-xs text-gray-500">MP3, MP4, WMA (MAX. 99MB)</p>
+                </ng-container>
+                <ng-container *ngIf="selectedFile">
+                  <div class="flex flex-row">
+                    <div class="p-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-8 h-8"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                        />
+                      </svg>
+                    </div>
+
+                    <div>
+                      <p class="mb-2 text-lg text-gray-800">
+                        <span class="font-semibold">{{ selectedFile.name }}</span>
+                      </p>
+                      <p class="text-xs text-green-900">{{ selectedFile.size | byteToMByte }} MB</p>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <input
+                id="dropzone-file"
+                type="file"
+                class="hidden"
+                accept="audio/*"
+                (change)="onFileSelected($event)"
+                [readonly]="!selectedFile"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex flex-row">
+      <div>
+        <app-button
+          [isDisabled]="false"
+          [isFormButton]="true"
+          text="CANCELAR"
+          buttonType="SECONDARY"
+          (clickAction)="closeModal()"
+        />
+      </div>
+      <div class="ml-3">
+        <app-button
+          [isDisabled]="true"
+          [isFormButton]="true"
+          text="ACEPTAR"
+          buttonType="PRIMARY"
+          (clickAction)="acceptModal()"
+        />
+      </div>
+    </div>
+  </mat-dialog-actions>
+</div>

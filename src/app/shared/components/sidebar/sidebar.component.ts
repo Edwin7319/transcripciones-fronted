@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
+import { APP_ROUTES } from '../../../constants/routes';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -12,7 +14,11 @@ export class SidebarComponent {
   list: MenuItem[] = [
     {
       label: 'Administración',
-      routerLink: '/zonales/tipo',
+      routerLink: APP_ROUTES.home,
+    },
+    {
+      label: 'Registro de audio',
+      routerLink: APP_ROUTES.audioRecording,
     },
   ];
 
