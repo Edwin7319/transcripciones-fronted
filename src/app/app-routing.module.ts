@@ -1,8 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { SharedModule } from './shared/shared.module';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'descuentos',
+    loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: '',
+    redirectTo: 'descuentos',
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), SharedModule],

@@ -1,0 +1,120 @@
+<ul
+  nz-menu
+  [nzMode]="'vertical'"
+  style="width: 100%"
+  [nzInlineCollapsed]="false"
+  *ngIf="list?.length"
+  class="animate__animated animate__fadeInLeft"
+>
+  <li
+    nz-submenu
+    class="bg-transcription-700 text-white font-normal relative rounded mx-2 z-10 hover:bg-white hover:border-gray-100 hover:text-transcription-900"
+    *ngFor="let option of list"
+    (click)="executeAction(option)"
+  >
+    <span title>
+      <i [class]="option.icon + ' icono'" style="margin-left: -10px"></i>
+      {{ option.label }}
+    </span>
+    <ul
+      class="bg-white w-64 absolute z-10 shadow-2xl shadow-gray-600 border-gray-300 rounded-2xl"
+      style="margin-left: 10px !important"
+      *ngIf="option.items?.length"
+    >
+      <li nz-menu-group>
+        <span title class="text-gray-600 font-bold text-xs">{{ option.label }}</span>
+        <ul>
+          <ng-container *ngFor="let opcionHija of option.items">
+            <li
+              class="text-sm bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+              nz-menu-item
+              *ngIf="!opcionHija.items?.length"
+              (click)="executeAction(opcionHija)"
+            >
+              <span>
+                <i [class]="option.icon + ' icono'"></i>
+                {{ opcionHija.label }}
+              </span>
+            </li>
+            <li
+              class="bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+              nz-submenu
+              *ngIf="opcionHija.items?.length"
+            >
+              <span title>
+                <i [class]="opcionHija.icon + ' icono'"></i>
+                {{ opcionHija.label }}
+              </span>
+              <ul
+                class="bg-white w-64 absolute z-10 shadow-2xl shadow-gray-600 border-gray-300 rounded-2xl"
+                *ngIf="opcionHija.items?.length"
+              >
+                <li nz-menu-group>
+                  <span title class="text-gray-600 font-bold text-xs">{{ opcionHija.label }}</span>
+                  <ul>
+                    <ng-container *ngFor="let opcionHija2 of opcionHija.items">
+                      <li
+                        class="text-sm bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+                        nz-menu-item
+                        *ngIf="!opcionHija2.items?.length"
+                        (click)="executeAction(opcionHija2)"
+                      >
+                        <span>
+                          <i [class]="opcionHija2.icon + ' icono'"></i>
+                          {{ opcionHija2.label }}
+                        </span>
+                      </li>
+                      <li
+                        class="bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+                        nz-submenu
+                        *ngIf="opcionHija2.items?.length"
+                      >
+                        <span title>
+                          <i [class]="opcionHija2.icon + ' icono'"></i>
+                          {{ opcionHija2.label }}
+                        </span>
+                        <ul
+                          class="bg-white w-64 absolute z-10 shadow-2xl shadow-gray-600 border-gray-300 rounded-2xl"
+                          *ngIf="opcionHija2.items?.length"
+                        >
+                          <li nz-menu-group>
+                            <span title class="text-gray-600 font-bold text-xs">{{ opcionHija2.label }}</span>
+                            <ul>
+                              <ng-container *ngFor="let opcionHija3 of opcionHija2.items">
+                                <li
+                                  class="text-sm bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+                                  nz-menu-item
+                                  *ngIf="!opcionHija3.items?.length"
+                                  (click)="executeAction(opcionHija3)"
+                                >
+                                  <span>
+                                    <i [class]="opcionHija3.icon + ' icono'"></i>
+                                    {{ opcionHija3.label }}
+                                  </span>
+                                </li>
+                                <li
+                                  class="text-sm bg-white font-normal hover:bg-transcription-700 hover:text-white hover:font-bold"
+                                  nz-submenu
+                                  *ngIf="opcionHija3.items?.length"
+                                >
+                                  <span title>
+                                    <i [class]="opcionHija3.icon + ' icono'"></i>
+                                    {{ opcionHija3.label }}
+                                  </span>
+                                </li>
+                              </ng-container>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li></ng-container
+                    >
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
