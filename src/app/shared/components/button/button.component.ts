@@ -27,6 +27,7 @@ export class ButtonComponent {
   set text(name: string) {
     this.buttonText = name.toUpperCase();
   }
+
   get name(): string {
     return this.buttonText;
   }

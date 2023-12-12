@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FormControl, FormGroup } from '@angular/forms';
 import { IConfig } from 'ngx-mask/lib/ngx-mask.config';
 
-type InputType = 'text' | 'number' | 'password' | 'email' | 'date' | 'time' | 'datetime-local';
+type InputType = 'text' | 'number' | 'password' | 'email' | 'date' | 'time' | 'datetime-local' | 'file';
 
 @Component({
   selector: 'app-input',

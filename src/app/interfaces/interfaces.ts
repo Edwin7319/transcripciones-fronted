@@ -3,7 +3,7 @@ export enum EStatus {
   DISABLED = 0,
 }
 
-export interface TableColumnInterface {
+export interface ITableColumn {
   field: string;
   header: string;
   width?: string;
