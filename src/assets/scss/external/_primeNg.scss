@@ -1,0 +1,10 @@
+body,
+body .p-component
+{
+  margin: 0;
+  font-family: $font;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #720459;
+}

@@ -1,0 +1,26 @@
+<div class="flex flex-col" *ngIf="control">
+  <div class="relative flex items-start" [formGroup]="formGroup" [class.invalid]="control.touched && control.invalid">
+    <div class="flex items-center h-5">
+      <input
+        [attr.id]="id"
+        [attr.name]="id"
+        [formControl]="control"
+        type="checkbox"
+        class="block w-full focus:ring-sky-500 h-5 text-sky-600 border-gray-400 rounded mt-2"
+        [ngClass]="{
+          'border-red-300': control.errors && control.touched
+        }"
+      />
+    </div>
+    <div class="p-1 ml-2">
+      <label [for]="id" [class]="labelExtraClasses || 'font-medium text-gray-600 text-base'" *ngIf="label">
+        {{ label }}
+      </label>
+    </div>
+  </div>
+  <div>
+    <span class="text-xs text-red-400 font-normal" *ngIf="control.errors && control.touched">
+      {{ control.errors[objectError.keys(control.errors)[0]] }}
+    </span>
+  </div>
+</div>

@@ -12,8 +12,14 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+// ng-zorro
+@import "ng-zorro-antd/ng-zorro-antd.min.css";
+
 // toaster
 @import 'ngx-toastr/toastr';
 
 // animations
 @import "animate.css";
+
+
+@import "partial/scrollBar";

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { ROUTES_WITHOUT_HEADER } from './constants/constants';
+import { AppStoreService } from './services/app-store.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,20 @@ import { ROUTES_WITHOUT_HEADER } from './constants/constants';
 export class AppComponent implements OnInit {
   title = 'transcripciones';
   showHeader = true;
-  showResponsiveAside = true;
+  showResponsiveSideBar = false;
   route = '';
+  user = {
+    photo:
+      // eslint-disable-next-line max-len
+      'https://media.licdn.com/dms/image/D4E03AQH-l0bptmnMMQ/profile-displayphoto-shrink_800_800/0/1695403710546?e=1707350400&v=beta&t=LLZyZMMriVPs-01XG7nAL-1hmlTeJSgRb7Ci9vpnUCo',
+    email: 'edwin@manticore.com.ec',
+    name: 'Edwin Guamushig',
+  };
 
   constructor(
     private _router: Router,
     private readonly _cdRef: ChangeDetectorRef,
+    private readonly _appStore: AppStoreService,
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +40,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  closeResponsiveAsida(): void {
-    this.showResponsiveAside = !this.showResponsiveAside;
+  closeResponsiveSidebar(): void {
+    this.showResponsiveSideBar = !this.showResponsiveSideBar;
+    this._appStore.updateStore('showSidebar', this.showResponsiveSideBar);
   }
 }

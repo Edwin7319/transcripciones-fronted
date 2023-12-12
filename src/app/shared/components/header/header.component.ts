@@ -28,7 +28,9 @@ export class HeaderComponent implements OnDestroy {
   subscriptions: Array<Subscription> = [];
 
   user = {
-    photo: '',
+    photo:
+      // eslint-disable-next-line max-len
+      'https://media.licdn.com/dms/image/D4E03AQH-l0bptmnMMQ/profile-displayphoto-shrink_800_800/0/1695403710546?e=1707350400&v=beta&t=LLZyZMMriVPs-01XG7nAL-1hmlTeJSgRb7Ci9vpnUCo',
     email: 'edwin@manticore.com.ec',
     name: 'Edwin Guamushig',
   };
@@ -51,7 +53,9 @@ export class HeaderComponent implements OnDestroy {
     },
   ];
 
-  constructor(private readonly _router: Router) {}
+  constructor(private readonly _router: Router) {
+    this.existUser = true;
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => {
@@ -70,5 +74,7 @@ export class HeaderComponent implements OnDestroy {
     });
   }
 
-  showSidebarOption(): void {}
+  showSidebarOption(): void {
+    this.clickAction.emit('clic');
+  }
 }
