@@ -5,6 +5,7 @@ import { debounceTime, Subscription } from 'rxjs';
 
 import { FORM_DEBOUNCE_TIME } from '../../../../constants/constants';
 import { FormUtil } from '../../../../utils/form.util';
+import { IAudioRecordingForm } from '../../interface/audio-recording.interface';
 
 @Component({
   selector: 'app-upload-audio-modal',
@@ -15,7 +16,7 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   subscriptions: Array<Subscription> = [];
   selectedFile: File | undefined;
-  formValues: any;
+  formValues: IAudioRecordingForm | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,6 +37,7 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loadFormData();
     this.listenFormChanges();
   }
 
@@ -43,6 +45,14 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((s) => {
       s.unsubscribe();
     });
+  }
+
+  loadFormData(): void {
+    if (this.data) {
+      this.form.patchValue({
+        ...this.data,
+      });
+    }
   }
 
   listenFormChanges(): void {

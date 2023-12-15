@@ -16,7 +16,7 @@
             [required]="true"
           />
         </div>
-        <div class="flex w-full justify-center items-center">
+        <div class="flex w-full justify-center items-center" *ngIf="!data">
           <div class="flex items-center justify-center w-full">
             <label
               for="dropzone-file"
@@ -97,15 +97,26 @@
           (clickAction)="closeModal()"
         />
       </div>
-      <div class="ml-3">
+      <div class="ml-3" *ngIf="!data; else showEdit">
         <app-button
-          [isDisabled]="true"
+          [isDisabled]="!formValues || !selectedFile"
           [isFormButton]="true"
           text="ACEPTAR"
           buttonType="PRIMARY"
           (clickAction)="acceptModal()"
         />
       </div>
+      <ng-template #showEdit>
+        <div class="ml-3">
+          <app-button
+            [isDisabled]="!formValues"
+            [isFormButton]="true"
+            text="EDITAR"
+            buttonType="PRIMARY"
+            (clickAction)="acceptModal()"
+          />
+        </div>
+      </ng-template>
     </div>
   </mat-dialog-actions>
 </div>

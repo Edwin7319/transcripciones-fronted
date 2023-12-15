@@ -35,15 +35,15 @@ export const AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
     maxWidth: '140px',
   },
   {
-    field: 'createdAt',
+    field: 'creationTime',
     header: 'Fecha de registro',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',
   },
   {
-    field: 'duration',
-    header: 'Longitud de audio',
+    field: 'size',
+    header: 'Tamaño de archivo',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',

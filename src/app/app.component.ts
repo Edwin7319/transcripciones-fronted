@@ -1,16 +1,18 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { ROUTES_WITHOUT_HEADER } from './constants/constants';
 import { AppStoreService } from './services/app-store.service';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   title = 'transcripciones';
+  showLoader = false;
   showHeader = true;
   showResponsiveSideBar = false;
   route = '';
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
     private _router: Router,
     private readonly _cdRef: ChangeDetectorRef,
     private readonly _appStore: AppStoreService,
+    private readonly _loaderService: LoaderService,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,17 @@ export class AppComponent implements OnInit {
           return routeWithoutQueryParams === `/${route}`;
         });
       }
+    });
+  }
+
+  ngAfterViewChecked(): void {
+    this.listenChangesOnLoader();
+  }
+
+  listenChangesOnLoader(): void {
+    this._loaderService.change.subscribe((state: boolean) => {
+      this.showLoader = state;
+      this._cdRef.detectChanges();
     });
   }
 

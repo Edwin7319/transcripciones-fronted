@@ -13,9 +13,15 @@ export interface ITableColumn {
   campoFiltro?: string;
 }
 
-export interface IBaseEntity {
-  id: number;
+export interface IBaseSchema {
+  _id: string;
   createdAt: string;
   updatedAt: string;
   status: EStatus;
+}
+
+export interface IPagination {
+  total: number;
+  page: number;
+  limit: number;
 }
