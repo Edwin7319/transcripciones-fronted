@@ -14,4 +14,19 @@ export class Utils {
       setTimeout(resolve, seconds * 1000);
     });
   }
+
+  static downloadFile = (file: BlobPart, tipo: string, nombre: string): void => {
+    const blob = new Blob([file], {
+      type: tipo,
+    });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', nombre);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 }

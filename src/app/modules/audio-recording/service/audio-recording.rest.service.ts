@@ -38,4 +38,8 @@ export class AudioRecordingRestService {
   delete(id: string): Observable<boolean> {
     return this._httpClient.delete<boolean>(`${this.url}/${id}`);
   }
+
+  getAudio(id: string): Observable<any> {
+    return this._httpClient.get(`${this.url}/obtener-audio/${id}`, { responseType: 'blob' });
+  }
 }

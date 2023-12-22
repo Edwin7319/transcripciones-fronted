@@ -72,18 +72,18 @@
 
               <div
                 class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
-                pTooltip="Eliminar"
+                pTooltip="Descargar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-trash text-transcription-600" (click)="delete(rowData)"></i>
+                <i class="text-xl pi pi-download text-transcription-600" (click)="getAudio(rowData)"></i>
               </div>
 
               <div
                 class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
-                pTooltip="Descargar"
+                pTooltip="Eliminar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-download text-transcription-600"></i>
+                <i class="text-xl pi pi-trash text-red-800" (click)="delete(rowData)"></i>
               </div>
             </div>
           </td>

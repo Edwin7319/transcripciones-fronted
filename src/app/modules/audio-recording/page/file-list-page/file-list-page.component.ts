@@ -7,6 +7,7 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { AUDIO_RECORDING_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
 import { ITableColumn } from '../../../../interfaces/interfaces';
+import { Utils } from '../../../../utils/utils';
 import { IAudioRecording, IAudioRecordingForm } from '../../interface/audio-recording.interface';
 import { UploadAudioModalComponent } from '../../modal/upload-audio-modal/upload-audio-modal.component';
 import { AudioRecordingRestService } from '../../service/audio-recording.rest.service';
@@ -98,11 +99,22 @@ export class FileListPageComponent implements OnInit {
     });
   }
 
+  getAudio(rowData: IAudioRecording) {
+    const delete$ = this._audioRecordingRestService.getAudio(rowData._id);
+
+    delete$.subscribe({
+      next: (response) => {
+        Utils.downloadFile(response, 'application/octet-stream', rowData.originalName);
+        console.log(response);
+      },
+    });
+  }
+
   rowSelected(row: TableRowSelectEvent): void {
     console.log(row);
   }
 
-  async showConfirmModal(param: any): Promise<SweetAlertResult> {
+  private async showConfirmModal(param: any): Promise<SweetAlertResult> {
     return Swal.fire({
       showClass: {
         popup: 'animate__animated animate__fadeInDown',
