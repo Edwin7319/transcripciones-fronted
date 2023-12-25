@@ -1,26 +1,26 @@
 <div class="flex flex-col h-full w-full">
   <app-page-title title="REGISTRO DE AUDIOS" />
 
-  <!--  <div>-->
-  <!--    <ngx-audio-player-->
-  <!--      [playlist]="msaapPlaylist"-->
-  <!--      [displayTitle]="msaapDisplayTitle"-->
-  <!--      [autoPlay]="false"-->
-  <!--      muted="muted"-->
-  <!--      [displayPlaylist]="msaapDisplayPlayList"-->
-  <!--      [pageSizeOptions]="msaapPageSizeOptions"-->
-  <!--      [displayArtist]="msaapDisplayArtist"-->
-  <!--      [displayDuration]="msaapDisplayDuration"-->
-  <!--      [expanded]="true"-->
-  <!--      [displayVolumeControls]="msaapDisplayVolumeControls"-->
-  <!--      [displayRepeatControls]="msaapDisplayRepeatControls"-->
-  <!--      [disablePositionSlider]="msaapDisablePositionSlider"-->
-  <!--    ></ngx-audio-player>-->
-  <!--  </div>-->
+  <div *ngIf="audioList.length">
+    <ngx-audio-player
+      [playlist]="audioList"
+      [displayTitle]="true"
+      [autoPlay]="false"
+      [displayArtist]="true"
+      [displayDuration]="true"
+      [expanded]="false"
+      [displayVolumeControls]="true"
+      [displayRepeatControls]="true"
+      [disablePositionSlider]="true"
+    ></ngx-audio-player>
+  </div>
 
   <mat-tab-group>
     <mat-tab label="Seleccionar archivo">
-      <app-file-list-page />
+      <app-file-list-page
+        (selectRow)="selectAudioRow($event, 'select')"
+        (unselectRow)="selectAudioRow($event, 'unselect')"
+      />
     </mat-tab>
     <mat-tab label="Transcripción">
       <app-transcription-page />

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TableRowSelectEvent } from 'primeng/table';
+import { TableRowSelectEvent, TableRowUnSelectEvent } from 'primeng/table';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { AUDIO_RECORDING_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
@@ -18,6 +18,11 @@ import { AudioRecordingRestService } from '../../service/audio-recording.rest.se
   styles: [],
 })
 export class FileListPageComponent implements OnInit {
+  @Output()
+  selectRow: EventEmitter<IAudioRecording> = new EventEmitter<IAudioRecording>();
+  @Output()
+  unselectRow: EventEmitter<IAudioRecording> = new EventEmitter<IAudioRecording>();
+
   data: Array<IAudioRecording> = [];
   rows = ROWS;
   rowsPerPage = ROWS_PAGINATION;
@@ -111,7 +116,15 @@ export class FileListPageComponent implements OnInit {
   }
 
   rowSelected(row: TableRowSelectEvent): void {
-    console.log(row);
+    if (row.data) {
+      this.selectRow.emit(row.data);
+    }
+  }
+
+  rowUnselected(row: TableRowUnSelectEvent) {
+    if (row.data) {
+      this.unselectRow.emit(row.data);
+    }
   }
 
   private async showConfirmModal(param: any): Promise<SweetAlertResult> {
@@ -129,7 +142,7 @@ export class FileListPageComponent implements OnInit {
       width: 600,
       padding: '0.5em',
       color: '#012e54',
-      html: `¿Esta seguro que desea eliminar el audio <strong>${param.name}</strong>?.`,
+      html: `¿Está seguro que desea eliminar el audio <strong>${param.name}</strong>?.`,
       cancelButtonColor: '#890000',
       showCancelButton: true,
       showCloseButton: true,

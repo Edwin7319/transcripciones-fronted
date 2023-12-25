@@ -43,7 +43,7 @@ export const AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
   },
   {
     field: 'size',
-    header: 'Tamaño de archivo',
+    header: 'Información',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',

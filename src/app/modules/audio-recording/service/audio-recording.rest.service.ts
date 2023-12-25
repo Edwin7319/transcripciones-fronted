@@ -27,6 +27,7 @@ export class AudioRecordingRestService {
     const formData = new FormData();
     formData.append('audio', data.file);
     formData.append('name', data.name);
+    formData.append('duration', `${data.duration}`);
 
     return this._httpClient.post<IAudioRecording>(this.url, formData);
   }

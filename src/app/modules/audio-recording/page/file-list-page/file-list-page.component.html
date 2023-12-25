@@ -1,6 +1,6 @@
 <div class="flex w-full flex-col bg-white p-6 border border-gray-200 rounded-lg">
   <p-table
-    dataKey="id"
+    dataKey="_id"
     [value]="data"
     [rows]="rows"
     [totalRecords]="totalRecords"
@@ -14,6 +14,7 @@
     styleClass="p-datatable-md p-datatable-striped"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
     (onRowSelect)="rowSelected($event)"
+    (onRowUnselect)="rowUnselected($event)"
   >
     <ng-template pTemplate="caption">
       <div class="flex flex-row">
@@ -57,8 +58,9 @@
             <div class="flex justify-center" *ngIf="col.field === 'creationTime'">
               {{ (rowData[col.field] | date: 'YYYY-MM-dd HH:mm') || '-' }}
             </div>
-            <div class="flex justify-center" *ngIf="col.field === 'size'">
-              {{ rowData[col.field] | byteToMByte }} MB
+            <div class="flex flex-col" *ngIf="col.field === 'size'" style="text-align: left !important">
+              <div><span class="font-bold">Tamaño: </span>{{ rowData[col.field] | byteToMByte }} MB</div>
+              <div><span class="font-bold">Duración: </span>{{ rowData['duration'] | secondToMinute }}</div>
             </div>
 
             <div class="flex flex-row justify-center gap-5 items-center" *ngIf="col.field === 'id'">
