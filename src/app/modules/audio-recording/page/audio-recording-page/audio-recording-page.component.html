@@ -1,7 +1,7 @@
 <div class="flex flex-col h-full w-full">
   <app-page-title title="REGISTRO DE AUDIOS" />
 
-  <div *ngIf="audioList.length">
+  <div class="w-full pb-12" *ngIf="audioList.length">
     <ngx-audio-player
       [playlist]="audioList"
       [displayTitle]="true"
@@ -10,21 +10,26 @@
       [displayDuration]="true"
       [expanded]="false"
       [displayVolumeControls]="true"
-      [displayRepeatControls]="true"
-      [disablePositionSlider]="true"
+      [displayRepeatControls]="false"
+      [disablePositionSlider]="false"
+      (durationchange)="onEvent($event)"
+      (cuechange)="onEvent($event)"
+      (timeupdate)="onEvent($event)"
     ></ngx-audio-player>
   </div>
 
-  <mat-tab-group>
-    <mat-tab label="Seleccionar archivo">
-      <app-file-list-page
-        (selectRow)="selectAudioRow($event, 'select')"
-        (unselectRow)="selectAudioRow($event, 'unselect')"
-      />
-    </mat-tab>
-    <mat-tab label="Transcripción">
-      <app-transcription-page />
-    </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
-  </mat-tab-group>
+  <div>
+    <mat-tab-group>
+      <mat-tab label="Seleccionar archivo">
+        <app-file-list-page
+          (selectRow)="selectAudioRow($event, 'select')"
+          (unselectRow)="selectAudioRow($event, 'unselect')"
+        />
+      </mat-tab>
+      <mat-tab label="Transcripción">
+        <app-transcription-page />
+      </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

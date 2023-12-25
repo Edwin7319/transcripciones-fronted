@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Track } from '@khajegan/ngx-audio-player';
 
 import { environment } from '../../../../../environments/environment';
@@ -31,5 +31,9 @@ export class AudioRecordingPageComponent implements OnInit {
       artist: 'Manticore',
       duration: data.duration,
     });
+  }
+
+  onEvent(event: any) {
+    console.log(event);
   }
 }
