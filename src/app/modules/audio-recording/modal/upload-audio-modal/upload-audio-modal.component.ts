@@ -17,6 +17,7 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
   subscriptions: Array<Subscription> = [];
   selectedFile: File | undefined;
   formValues: IAudioRecordingForm | undefined;
+  duration = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -76,6 +77,7 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close({
       ...this.formValues,
       file: this.selectedFile,
+      duration: this.duration,
     });
   }
 
@@ -84,7 +86,13 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
     const selectedFile = event.target?.files[0];
 
     if (selectedFile) {
-      this.selectedFile = selectedFile;
+      const audioElement = document.createElement('audio');
+
+      audioElement.src = URL.createObjectURL(selectedFile);
+      audioElement.addEventListener('loadedmetadata', () => {
+        this.duration = audioElement.duration;
+        this.selectedFile = selectedFile;
+      });
     }
   }
 }

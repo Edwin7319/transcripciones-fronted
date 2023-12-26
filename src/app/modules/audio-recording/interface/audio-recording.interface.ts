@@ -7,6 +7,8 @@ export interface IAudioRecording extends IBaseSchema {
   path: string;
   destination: string;
   creationTime: number;
+  duration: number;
+  copyName: string;
 }
 
 export interface IAudioRecordingPagination {
@@ -17,4 +19,5 @@ export interface IAudioRecordingPagination {
 export interface IAudioRecordingForm {
   name: string;
   file: File;
+  duration: number;
 }

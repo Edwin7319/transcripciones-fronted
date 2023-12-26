@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { NgxAudioPlayerModule } from '@khajegan/ngx-audio-player';
 import { DockModule } from 'primeng/dock';
 import { TableModule } from 'primeng/table';
 
-import { ByteToMBytePipe } from '../../pipes/byte-to-megabyte';
+import { PipesModule } from '../../pipes/pipes.module';
 import { SharedModule } from '../../shared/shared.module';
 
 import { AudioRecordingRoutingModule } from './audio-recording-routing.module';
@@ -20,7 +20,6 @@ import { TranscriptionPageComponent } from './page/transcription-page/transcript
   declarations: [
     AudioRecordingPageComponent,
     UploadAudioModalComponent,
-    ByteToMBytePipe,
     FileListPageComponent,
     TranscriptionPageComponent,
   ],
@@ -35,6 +34,7 @@ import { TranscriptionPageComponent } from './page/transcription-page/transcript
     ReactiveFormsModule,
     MatTabsModule,
     NgxAudioPlayerModule,
+    PipesModule,
   ],
 })
 export class AudioRecordingModule {}
