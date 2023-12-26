@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Track } from '@khajegan/ngx-audio-player';
+import { Track, AudioPlayerComponent } from '@khajegan/ngx-audio-player';
 
 import { environment } from '../../../../../environments/environment';
 import { IAudioRecording } from '../../interface/audio-recording.interface';

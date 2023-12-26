@@ -12,9 +12,9 @@
       [displayVolumeControls]="true"
       [displayRepeatControls]="false"
       [disablePositionSlider]="false"
+      (timeupdate)="onEvent($event)"
       (durationchange)="onEvent($event)"
       (cuechange)="onEvent($event)"
-      (timeupdate)="onEvent($event)"
     ></ngx-audio-player>
   </div>
 

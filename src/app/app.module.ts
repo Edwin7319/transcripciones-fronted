@@ -4,7 +4,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxAudioPlayerModule } from '@khajegan/ngx-audio-player';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 import { BlockUIModule } from 'primeng/blockui';
@@ -26,7 +25,6 @@ import { SharedModule } from './shared/shared.module';
     BreadcrumbModule,
     HttpClientModule,
     SharedModule,
-    NgxAudioPlayerModule,
     MatIconModule,
     BlockUIModule,
     SweetAlert2Module.forRoot(),
