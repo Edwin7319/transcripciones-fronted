@@ -1,0 +1,81 @@
+<div
+  class="cursor-pointer"
+  [ngClass]="{
+    'cursor-pointer': !isDisabled,
+    'cursor-not-allowed': isDisabled
+  }"
+>
+  <div *ngIf="isFormButton">
+    <button
+      type="submit"
+      class="flex w-full justify-center border rounded-lg shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-transparent py-1 px-5 leading-5 hover:text-white"
+      [ngClass]="{
+        'bg-gray-400 hover:bg-gray-500 text-black': isDisabled,
+        'bg-transcription-600 hover:bg-transcription-700 text-gray-50': buttonType === 'PRIMARY',
+        'bg-sky-600 hover:bg-sky-700 border-0 text-white hover:text-white': buttonType === 'INFO',
+        'bg-gray-300 hover:bg-gray-500 text-white hover:text-white': buttonType === 'SECONDARY',
+        'bg-white hover:bg-gray-200 text-transcription-900 border-none shadow-none': buttonType === 'LIGHT',
+        'bg-red-700 hover:bg-red-800 text-white hover:text-white': buttonType === 'DANGER',
+        'bg-green-600 hover:bg-green-700 border-green-600 text-white hover:text-white': buttonType === 'SUCCESS'
+      }"
+      (click)="!isDisabled && onClick()"
+    >
+      <div *ngIf="icon">
+        <i *ngIf="!isMaterialIcon; else materialIcon" class="pi {{ icon }} mr-1" style="font-size: 4rem"></i>
+        <ng-template #materialIcon>
+          <span class="material-icons mr-1" style="font-size: 0.7rem">
+            {{ icon }}
+          </span>
+        </ng-template>
+      </div>
+      <span
+        class="text-base font-semibold"
+        [ngClass]="{
+          'text-black': buttonType === 'SECONDARY',
+          'text-base': textSize === 'base',
+          'text-xs': textSize === 'xs',
+          'text-sm': textSize === 'sm'
+        }"
+        >{{ buttonText }}</span
+      >
+    </button>
+  </div>
+  <div *ngIf="!isFormButton">
+    <a
+      class="flex w-full justify-center border rounded-lg shadow-sm text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-transparent py-1 px-5 leading-5"
+      [ngClass]="{
+        'bg-gray-400 hover:bg-gray-500 text-black': isDisabled,
+        'bg-transcription-600 hover:bg-transcription-700 text-gray-50': buttonType === 'PRIMARY',
+        'bg-sky-600 hover:bg-sky-700 border-0 text-white hover:text-white': buttonType === 'INFO',
+        'bg-gray-300 hover:bg-gray-500 text-white hover:text-white': buttonType === 'SECONDARY',
+        'bg-white hover:bg-gray-200 text-transcription-900 border-none shadow-none': buttonType === 'LIGHT',
+        'bg-red-700 hover:bg-red-800 text-white hover:text-white': buttonType === 'DANGER',
+        'bg-green-600 hover:bg-green-700 border-green-600 text-white hover:text-white': buttonType === 'SUCCESS'
+      }"
+      (click)="!isDisabled && onClick()"
+    >
+      <div *ngIf="icon" style="margin-top: 2px">
+        <i
+          *ngIf="!isMaterialIcon; else materialIcon"
+          class="pi {{ icon }} mr-3 items-center"
+          style="font-size: 0.7rem"
+        ></i>
+        <ng-template #materialIcon>
+          <span class="material-icons" style="font-size: 0.7rem">
+            {{ icon }}
+          </span>
+        </ng-template>
+      </div>
+      <span
+        class="text-base font-semibold"
+        [ngClass]="{
+          'text-black': buttonType === 'SECONDARY',
+          'text-base': textSize === 'base',
+          'text-xs': textSize === 'xs',
+          'text-sm': textSize === 'sm'
+        }"
+        >{{ buttonText }}</span
+      >
+    </a>
+  </div>
+</div>

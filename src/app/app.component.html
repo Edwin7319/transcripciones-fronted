@@ -1,0 +1,130 @@
+<p-blockUI [blocked]="showLoader" [baseZIndex]="99" [autoZIndex]="true">
+  <div class="lds-spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</p-blockUI>
+<div class="min-h-full">
+  <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true" *ngIf="showResponsiveSideBar">
+    <div class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
+
+    <div class="fixed inset-0 z-40 flex">
+      <div class="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4">
+        <div class="absolute top-0 right-0 -mr-12 pt-2">
+          <button
+            type="button"
+            class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            (click)="closeResponsiveSidebar()"
+          >
+            <svg
+              class="h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center px-4 justify-center items-center">
+          <img class="h-14 w-auto bg-white rounded shadow-2xl" src="/assets/img/logo-manti.png" alt="_log_" />
+        </div>
+        <div class="mt-8 h-0 flex-1 flex flex-col">
+          <div class="px-3 relative inline-block text-left">
+            <div>
+              <span class="flex w-full justify-between items-center">
+                <span class="flex min-w-0 items-center justify-between space-x-3">
+                  <img class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0" [src]="user.photo" alt="__perfil__" />
+                  <span class="flex-1 flex flex-col min-w-0">
+                    <span class="text-gray-900 text-sm font-medium truncate">{{ user.name || 'N/A' }}</span>
+                    <span class="text-gray-500 text-sm truncate">{{ user.email || 'N/A' }}</span>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div>
+            <nav class="px-0 mt-8">
+              <div class="space-y-1" style="overflow-y: scroll; height: 70vh">
+                <app-sidebar></app-sidebar>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-14 flex-shrink-0" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div
+    class="hidden lg:fixed lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-200 lg:bg-gray-100 lg:pb-4 shadow-xl animate__animated animate__fadeInLeft h-screen"
+    *ngIf="showResponsiveSideBar"
+  >
+    <div class="flex justify-center items-center flex-shrink-0 px-6 bg-transcription-700 border-b-2 border-white h-16">
+      <img class="h-14 w-auto bg-white rounded shadow-2xl" src="/assets/img/logo-manti.png" alt="_log_" />
+    </div>
+    <div class="mt-8 h-0 flex-1 flex flex-col">
+      <div class="px-3 relative inline-block text-left">
+        <div>
+          <span class="flex w-full justify-between items-center">
+            <span class="flex min-w-0 items-center justify-between space-x-3">
+              <img class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0" [src]="user.photo" alt="__perfil__" />
+              <span class="flex-1 flex flex-col min-w-0">
+                <span class="text-gray-900 text-sm font-medium truncate">{{ user.name || 'N/A' }}</span>
+                <span class="text-gray-500 text-sm truncate">{{ user.email || 'N/A' }}</span>
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div>
+        <nav class="px-0 mt-8">
+          <div class="space-y-1" style="overflow-y: scroll; height: 70vh">
+            <app-sidebar></app-sidebar>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:pl-64 flex flex-col" [ngClass]="{ 'lg:pl-64': showResponsiveSideBar }">
+    <main class="flex-1">
+      <div class="flex flex-col h-screen bg-gray-50">
+        <div class="sticky top-0" style="z-index: 999 !important" *ngIf="showHeader">
+          <app-header (clickAction)="closeResponsiveSidebar()" [ruta]="route"></app-header>
+        </div>
+        <div class="mt-5 ml-14">
+          <xng-breadcrumb separator="/" [autoGenerate]="false">
+            <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
+              <mat-icon *ngIf="info">{{ info }}</mat-icon>
+              <ng-container>
+                <span class="ml-0.5">{{ breadcrumb }}</span>
+              </ng-container>
+            </ng-container>
+          </xng-breadcrumb>
+        </div>
+        <div class="flex-1 w-full lg:px-10 md:px-5 px-5">
+          <router-outlet> </router-outlet>
+        </div>
+        <div>
+          <app-footer></app-footer>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

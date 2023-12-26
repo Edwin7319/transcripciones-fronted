@@ -1,0 +1,68 @@
+<div class="flex flex-col" *ngIf="control">
+  <div
+    class="border bg-gray-50 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-transcription-500 focus-within:border-transcription-500 h-4.4"
+    [ngClass]="{
+      'border-red-300': control.errors && control.touched,
+      'border-gray-300': !control.errors && !control.touched
+    }"
+    [formGroup]="formGroup"
+    [class.invalid]="control.touched && control.invalid"
+  >
+    <label
+      class="block text-xs font-medium text-gray-900 cursor-pointer"
+      [ngClass]="{
+        'text-red-500': control.errors && control.touched
+      }"
+      [for]="id"
+      *ngIf="label"
+    >
+      {{ label }}{{ required ? '*' : '' }}
+    </label>
+    <ng-select
+      [attr.name]="id"
+      [attr.id]="id"
+      [formControl]="control"
+      [items]="options"
+      [labelForId]="id"
+      [placeholder]="placeholder"
+      [virtualScroll]="true"
+      [selectOnTab]="true"
+      [loading]="hiddeLoading"
+      [multiple]="isMultiple"
+      [clearable]="true"
+      [hideSelected]="true"
+      [readonly]="readonly"
+      (search)="onSearch($event)"
+      (change)="onChange($event)"
+      [maxSelectedItems]="maxSelected"
+      [formControlName]="id"
+      class="custom"
+      dropdownPosition="auto"
+      clearAllText="Limpiar"
+      bindLabel="label"
+      bindValue="value"
+      notFoundText="No se encontraron resultados"
+      appearance="underline"
+      loadingText="Cargando..."
+      [tabIndex]="9999"
+      appendTo="body"
+      #select
+    >
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div>
+          <span>{{ item.label }}</span>
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+  <div>
+    <span class="text-xs text-gray-400 font-normal">
+      {{ help }}
+    </span>
+  </div>
+  <div>
+    <span class="text-xs text-red-400 font-normal" *ngIf="control.errors && control.touched">
+      {{ control.errors[objectError.keys(control.errors)[0]] }}
+    </span>
+  </div>
+</div>

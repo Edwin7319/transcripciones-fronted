@@ -1,0 +1,211 @@
+$font-size: 13px;
+
+.empty-column-filter {
+  background: rgba(255, 0, 0, 0);
+  border: none;
+  padding: 0;
+}
+
+.p-datatable.p-datatable-md .p-datatable-header {
+  padding: 0.5rem 0.5rem;
+  background: $primary-color;
+  font-weight: bold;
+  font-family: $font;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: lighten($black-color, 5%);
+  background: $secondary-color;
+  transition: box-shadow 0.2s;
+  font-size: 14px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: $font;
+}
+
+.p-paginator .p-dropdown {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  text-align: left;
+  border-bottom: 1px solid $secondary-color;
+  padding: 1rem 1rem;
+  font-size: $font-size;
+  font-family: $font;
+}
+
+.p-column-filter-buttonbar .p-button {
+  width: auto;
+  color: $black-color !important;
+  border: 1px solid $primary-color !important;
+}
+
+.p-column-filter-buttonbar .p-button:hover {
+  width: auto;
+  color: $white-color !important;
+  border: 1px solid $primary-color !important;
+  background: $primary-color !important;
+}
+
+.p-paginator .p-paginator-current {
+  background-color: transparent;
+  border: 0 none;
+  color: $black-color;
+  min-width: 3rem;
+  height: 3rem;
+  margin: 0.143rem;
+  padding: 0 0.5rem;
+  font-size: $font-size;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: lighten($primary-color, 66%);
+  border-color: #F5F3FF;
+  color: lighten($black-color, 10%);
+  height: 31px;
+  width: 31px;
+  font-size: $font-size !important;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: $primary-color;
+  background: lighten($primary-color, 66%);;
+}
+
+.p-column-filter-overlay {
+  background: #ffffff;
+  color: #495057;
+  border: 0 none;
+  border-radius: 6px;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  min-width: 12.5rem;
+  width: 10rem;
+}
+
+.p-dropdown {
+  background: $white-color;
+  border: 1px solid darken($secondary-color, 10%);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+  height: 32px;
+  align-items: center;
+  font-size: $font-size !important;
+}
+
+.p-button.p-button-text {
+  background-color: transparent;
+  color: $primary-color;
+  border-color: transparent;
+}
+
+.p-button:hover.p-button-text {
+  background-color: lighten($primary-color, 66%) !important;
+  color: $primary-color !important;
+  border-color: transparent;
+}
+
+#tablaHijos {
+  .p-datatable-header {
+    background-color: dimgrey;
+  }
+}
+
+.p-datatable .p-paginator-bottom {
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  background: $white-color;
+}
+
+.p-fluid .p-inputtext {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.p-column-filter-overlay-menu .p-column-filter-operator {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #343a40;
+  background: #f8f9fa;
+  margin: 0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  //display: none;
+}
+
+.p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-matchmode-dropdown {
+  margin-bottom: 0.5rem;
+  //display: none;
+}
+
+.p-button.p-button-text {
+  background-color: transparent;
+  color: $primary-color;
+  border-color: transparent;
+  //display: none;
+}
+
+.p-datatable-thead > .p-component, .p-component * {
+  box-sizing: border-box;
+  border: none;
+}
+
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+  background: #efefef;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background: $white-color;
+}
+
+.p-datatable.p-datatable-md .p-datatable-tbody > tr > td {
+  padding: 0.5rem 0.5rem;
+  justify-content: center;
+}
+
+.p-datatable.p-datatable-md .p-datatable-thead > tr > th {
+  padding: 0.5rem 0.5rem;
+  justify-content: center;
+}
+
+  .p-fluid .p-inputtext {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #d9dade;
+  }
+
+.p-fluid .p-dropdown .p-dropdown-label {
+  width: 1%;
+  border: none;
+}
+
+[type='text'], input:where(:not([type])), [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+  appearance: none;
+  background-color: #f1f1f1 !important;
+  border-color: #6b7280;
+  border-width: 1px;
+  border-radius: 0px;
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-shadow: 0 0 #0000;
+}
+
+input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
+  -webkit-appearance: listbox;
+  border: none;
+  background-color: #f9fafb !important;
+}
