@@ -19,6 +19,7 @@ export class LocalStorageService {
   getAppStore(): IAppStore {
     return {
       showSidebar: false,
+      audioRecordingId: '',
     };
   }
 
