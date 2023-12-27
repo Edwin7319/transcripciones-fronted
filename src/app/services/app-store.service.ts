@@ -6,10 +6,12 @@ import { LocalStorageService } from './local-storage.service';
 
 export interface IAppStore {
   showSidebar: boolean;
+  audioRecordingId: string;
 }
 
 export const INITIAL_STATE: IAppStore = {
   showSidebar: false,
+  audioRecordingId: '',
 };
 
 @Injectable({
@@ -32,8 +34,6 @@ export class AppStoreService {
   updateStore<T = any>(key: keyof IAppStore, value: T): void {
     this._data = {
       ...this._data,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       [key]: value,
     };
     this.updateStorage(key, value);
