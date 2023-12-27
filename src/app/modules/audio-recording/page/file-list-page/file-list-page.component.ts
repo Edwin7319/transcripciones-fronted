@@ -7,6 +7,7 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { AUDIO_RECORDING_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
 import { ITableColumn } from '../../../../interfaces/interfaces';
+import { AppStoreService } from '../../../../services/app-store.service';
 import { Utils } from '../../../../utils/utils';
 import { IAudioRecording, IAudioRecordingForm } from '../../interface/audio-recording.interface';
 import { UploadAudioModalComponent } from '../../modal/upload-audio-modal/upload-audio-modal.component';
@@ -34,6 +35,7 @@ export class FileListPageComponent implements OnInit {
     private readonly _router: Router,
     private readonly _audioRecordingRestService: AudioRecordingRestService,
     private readonly _toaster: ToastrService,
+    private readonly _appStore: AppStoreService,
   ) {}
 
   private getData(): void {
@@ -117,12 +119,14 @@ export class FileListPageComponent implements OnInit {
 
   rowSelected(row: TableRowSelectEvent): void {
     if (row.data) {
+      this._appStore.updateStore('audioRecordingId', row.data._id);
       this.selectRow.emit(row.data);
     }
   }
 
   rowUnselected(row: TableRowUnSelectEvent) {
     if (row.data) {
+      this._appStore.updateStore('audioRecordingId', '');
       this.unselectRow.emit(row.data);
     }
   }

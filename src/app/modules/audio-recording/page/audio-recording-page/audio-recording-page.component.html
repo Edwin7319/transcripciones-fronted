@@ -26,7 +26,7 @@
           (unselectRow)="selectAudioRow($event, 'unselect')"
         />
       </mat-tab>
-      <mat-tab label="Transcripción">
+      <mat-tab label="Transcripción" [disabled]="!audioList.length">
         <app-transcription-page />
       </mat-tab>
       <mat-tab label="Third"> Content 3 </mat-tab>
