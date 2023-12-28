@@ -14,14 +14,10 @@
       [displayVolumeControls]="true"
       [displayRepeatControls]="true"
       [disablePositionSlider]="false"
-      [startOffset]="startAudioAt"
-      (trackEnded)="onEvent($event)"
+      (trackEnded)="onTrackEnded($event)"
     />
+    <button (click)="logCurrentTime()">Click</button>
   </div>
-
-  <p class="px-3">
-    <button (click)="logCurrentTime()">Log Current Time</button>
-  </p>
 
   <div>
     <mat-tab-group>
@@ -32,7 +28,7 @@
         />
       </mat-tab>
       <mat-tab label="Transcripción" [disabled]="!audioList.length">
-        <app-transcription-page />
+        <app-transcription-page [currentTime]="currentTime" />
       </mat-tab>
       <mat-tab label="Third"> Content 3 </mat-tab>
     </mat-tab-group>

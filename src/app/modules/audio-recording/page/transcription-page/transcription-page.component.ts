@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AppStoreService } from '../../../../services/app-store.service';
-import { TEXT_LOCATION, TEXT_TRANSCRIPTION } from '../../constants/mock';
+import { ITranscriptionLocation } from '../../interface/transcription-file.interface';
 import { TranscriptionFileRestService } from '../../service/transcription-file.rest.service';
 
 @Component({
@@ -11,8 +11,11 @@ import { TranscriptionFileRestService } from '../../service/transcription-file.r
   styles: [],
 })
 export class TranscriptionPageComponent implements OnInit, OnDestroy {
+  @Input()
+  currentTime = 0;
+
   private subscriptions: Array<Subscription> = [];
-  location = '';
+  location: Array<ITranscriptionLocation> = [];
   transcription = '';
 
   constructor(
@@ -43,7 +46,7 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
 
     get$.subscribe({
       next: (response) => {
-        this.location = response.transcriptionLocation;
+        this.location = response.transcriptionArray;
         this.transcription = response.transcription;
       },
     });

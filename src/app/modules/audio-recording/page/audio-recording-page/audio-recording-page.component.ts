@@ -18,8 +18,8 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
 
   private apiUrl = '';
   private subscriptions: Array<Subscription> = [];
+
   audioList: Track[] = [];
-  startAudioAt = 0;
   currentTime = 0;
 
   ngOnInit(): void {
@@ -27,6 +27,10 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
+  private unsubscribe(): void {
     this.subscriptions.forEach((s) => {
       s.unsubscribe();
     });
@@ -34,24 +38,28 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
 
   selectAudioRow(data: IAudioRecording, action: TRowAction): void {
     this.audioList = [];
-    if (action === 'unselect') {
-      return;
-    }
 
-    this.audioList.push({
-      title: data.originalName,
-      link: `${this.apiUrl}/${data.copyName}`,
-      artist: 'Manticore',
-      duration: data.duration,
-    });
+    if (action === 'unselect') return;
+
+    this.audioList = [
+      {
+        title: data.originalName,
+        link: `${this.apiUrl}/${data.copyName}`,
+        artist: data.name,
+        duration: data.duration,
+      },
+    ];
   }
 
-  onEvent(event: any) {}
+  onTrackEnded(_event: any) {
+    this.unsubscribe();
+  }
 
   logCurrentTime() {
+    if (!this.advancedPlayer.isPlaying) return;
     const currentTime$ = this.advancedPlayer.audioPlayerService.getCurrentTime().subscribe({
       next: (time) => {
-        console.log(time);
+        this.currentTime = time;
       },
     });
     this.subscriptions.push(currentTime$);
