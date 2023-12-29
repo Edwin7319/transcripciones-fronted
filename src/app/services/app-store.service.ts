@@ -7,11 +7,15 @@ import { LocalStorageService } from './local-storage.service';
 export interface IAppStore {
   showSidebar: boolean;
   audioRecordingId: string;
+  transcription: string;
+  transcriptionFileId: string;
 }
 
 export const INITIAL_STATE: IAppStore = {
   showSidebar: false,
   audioRecordingId: '',
+  transcription: '',
+  transcriptionFileId: '',
 };
 
 @Injectable({

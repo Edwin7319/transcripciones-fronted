@@ -6,6 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxAudioPlayerModule } from '@khajegan/ngx-audio-player';
 import { ButtonModule } from 'primeng/button';
 import { DockModule } from 'primeng/dock';
+import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 
@@ -16,6 +17,8 @@ import { AudioRecordingRoutingModule } from './audio-recording-routing.module';
 import { UploadAudioModalComponent } from './modal/upload-audio-modal/upload-audio-modal.component';
 import { AudioRecordingPageComponent } from './page/audio-recording-page/audio-recording-page.component';
 import { FileListPageComponent } from './page/file-list-page/file-list-page.component';
+import { TextEditorComponent } from './page/records-page/components/text-editor/text-editor.component';
+import { RecordsPageComponent } from './page/records-page/records-page.component';
 import { TranscriptionPageComponent } from './page/transcription-page/transcription-page.component';
 
 @NgModule({
@@ -24,6 +27,8 @@ import { TranscriptionPageComponent } from './page/transcription-page/transcript
     UploadAudioModalComponent,
     FileListPageComponent,
     TranscriptionPageComponent,
+    RecordsPageComponent,
+    TextEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +44,7 @@ import { TranscriptionPageComponent } from './page/transcription-page/transcript
     PipesModule,
     ButtonModule,
     InputTextModule,
+    EditorModule,
   ],
 })
 export class AudioRecordingModule {}
