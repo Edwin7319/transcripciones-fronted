@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { REPORT_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
 import { ITableColumn } from '../../../../interfaces/interfaces';
@@ -61,7 +62,7 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
 
     findAll$.subscribe({
       next: (response) => {
-        const { data, metadata } = response;
+        const { data } = response;
         this.data = data;
       },
     });
@@ -93,7 +94,19 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  delete(rowData: IRecords): void {}
+  async delete(rowData: IRecords): Promise<void> {
+    const response = await this.showConfirmModal(rowData);
+    if (response.isDismissed) return;
+
+    const delete$ = this._recordsRestService.delete(rowData._id);
+
+    delete$.subscribe({
+      next: () => {
+        this.data = this.data.filter((d) => d._id !== rowData._id);
+        this._toaster.success('Registro eliminado de manera correcta', 'Éxito');
+      },
+    });
+  }
 
   cancelCreateForm() {
     this._loaderService.show();
@@ -112,9 +125,39 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
 
     request$.subscribe({
       next: (response) => {
-        this.data.unshift(response);
         this.showCreateForm = false;
+        if (!this.recordingId) {
+          this.data.unshift(response);
+          return;
+        }
+
+        const index = this.data.findIndex((d) => d._id === this.recordingId);
+        this.data[index] = response;
       },
+    });
+  }
+
+  private async showConfirmModal(param: any): Promise<SweetAlertResult> {
+    return Swal.fire({
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+      title: 'Eliminar acta',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      confirmButtonText: 'Eliminar',
+      width: 600,
+      padding: '0.5em',
+      color: '#012e54',
+      html: `¿Está seguro que desea eliminar el acta <strong>${param.name}</strong>?.`,
+      cancelButtonColor: '#890000',
+      showCancelButton: true,
+      showCloseButton: true,
+      cancelButtonText: 'Cancelar',
+      iconColor: '#000000',
     });
   }
 }

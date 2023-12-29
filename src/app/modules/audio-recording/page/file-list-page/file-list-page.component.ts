@@ -144,7 +144,7 @@ export class FileListPageComponent implements OnInit {
       hideClass: {
         popup: 'animate__animated animate__fadeOutUp',
       },
-      title: 'Eliminar registro',
+      title: 'Eliminar audio',
       allowOutsideClick: false,
       allowEscapeKey: false,
       confirmButtonText: 'Eliminar',
