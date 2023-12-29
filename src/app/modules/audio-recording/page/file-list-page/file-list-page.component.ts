@@ -113,7 +113,7 @@ export class FileListPageComponent implements OnInit {
 
   getAudio(event: MouseEvent, rowData: IAudioRecording) {
     event.stopPropagation();
-    const download$ = this._transcriptionFileService.downloadFile(rowData);
+    const download$ = this._transcriptionFileService.downloadTxtFile(rowData);
 
     download$.subscribe({
       next: () => {
