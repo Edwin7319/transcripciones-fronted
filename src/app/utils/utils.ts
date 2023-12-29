@@ -15,15 +15,15 @@ export class Utils {
     });
   }
 
-  static downloadFile = (file: BlobPart, tipo: string, nombre: string): void => {
-    const blob = new Blob([file], {
-      type: tipo,
+  static downloadFile = (buffer: ArrayBuffer, fileType: string, fileName: string): void => {
+    const blob = new Blob([buffer], {
+      type: fileType,
     });
     const link = document.createElement('a');
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob);
       link.setAttribute('href', url);
-      link.setAttribute('download', nombre);
+      link.setAttribute('download', fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

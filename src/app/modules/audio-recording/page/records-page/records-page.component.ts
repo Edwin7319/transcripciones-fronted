@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 import { REPORT_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
@@ -31,6 +32,7 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
     private readonly _loaderService: LoaderService,
     private readonly _appStore: AppStoreService,
     private readonly _recordsRestService: RecordsRestService,
+    private readonly _toaster: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -66,12 +68,13 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
   }
   openCreateOrEditModal(rowData?: IRecords): void {
     this.showCreateForm = true;
+    this.recordingId = rowData?._id || '';
+
     if (rowData) {
       this.inputFormData = {
         text: rowData.text,
         name: rowData.name,
       };
-      this.recordingId = rowData._id;
       return;
     }
     this.inputFormData = {
@@ -80,7 +83,15 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
     };
   }
 
-  downloadWordFile(rowData: IRecords): void {}
+  downloadWordFile(rowData: IRecords): void {
+    const download$ = this._recordsRestService.downloadDocxFile(rowData);
+
+    download$.subscribe({
+      next: () => {
+        this._toaster.success('Documento generado de manera correcta', 'Éxito');
+      },
+    });
+  }
 
   delete(rowData: IRecords): void {}
 
@@ -93,7 +104,7 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
   createOrUpdateText(value: IRecordsForm) {
     let request$;
 
-    if (this.recordingId) {
+    if (!this.recordingId) {
       request$ = this._recordsRestService.create(this.fileId, value);
     } else {
       request$ = this._recordsRestService.update(this.recordingId, value);
