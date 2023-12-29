@@ -1,0 +1,63 @@
+<div class="card">
+  <div>
+    <form [formGroup]="form" (keyup.enter)="eventSubmit()">
+      <div class="mt-4 mb-4">
+        <app-input
+          id="name"
+          label="Nombre"
+          placeholder="Ej: Acta uno"
+          help="Ingrese el nombre de acta a registrar"
+          [type]="'text'"
+          [formGroup]="form"
+          [required]="true"
+        />
+      </div>
+      <p-editor formControlName="text" [style]="{ height: '320px', width: '100%' }">
+        <ng-template pTemplate="header">
+          <span class="ql-formats">
+            <button type="button" class="ql-bold" aria-label="Bold"></button>
+            <button type="button" class="ql-italic" aria-label="Italic"></button>
+            <button type="button" class="ql-underline" aria-label="Underline"></button>
+          </span>
+          <select class="ql-size">
+            <option value="small"></option>
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+          </select>
+          <span class="ql-formats">
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-align" value=""></button>
+            <button class="ql-align" value="center"></button>
+            <button class="ql-align" value="right"></button>
+            <button class="ql-align" value="justify"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-header" value="1"></button>
+            <button class="ql-header" value="2"></button>
+            <button class="ql-blockquote"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
+          </span>
+        </ng-template>
+      </p-editor>
+    </form>
+  </div>
+  <div class="mt-6">
+    <app-button
+      text="Aceptar"
+      [isFormButton]="false"
+      buttonType="PRIMARY"
+      icon="pi-plus"
+      [isDisabled]="!isFormValid"
+      (clickAction)="createOrUpdate()"
+    />
+  </div>
+</div>

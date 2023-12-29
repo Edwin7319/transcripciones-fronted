@@ -10,11 +10,6 @@
 // ng-zorro
 @import "ng-zorro-antd/ng-zorro-antd.min.css";
 
-// primeng
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
-
 // toaster
 @import 'ngx-toastr/toastr';
 
@@ -27,6 +22,10 @@
 // material
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+// primeng
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 // partial
 @import "partial/scrollBar";

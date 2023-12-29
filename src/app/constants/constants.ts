@@ -56,3 +56,33 @@ export const AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
     maxWidth: '140px',
   },
 ];
+export const REPORT_TABLE_COLUMNS: Array<ITableColumn> = [
+  {
+    field: 'code',
+    header: 'Código',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: 'name',
+    header: 'Nombre',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: 'creationTime',
+    header: 'Fecha de registro',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: '_id',
+    header: 'Acciones',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+];

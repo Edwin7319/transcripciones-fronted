@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PrimeNGConfig } from 'primeng/api';
 import { TableRowSelectEvent, TableRowUnSelectEvent } from 'primeng/table';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 
@@ -37,24 +36,7 @@ export class FileListPageComponent implements OnInit {
     private readonly _toaster: ToastrService,
     private readonly _appStore: AppStoreService,
     private readonly _transcriptionFileService: TranscriptionFileRestService,
-    private _primeConfig: PrimeNGConfig,
-  ) {
-    this._primeConfig.setTranslation({
-      matchAll: 'Coincidir todos',
-      matchAny: 'Coincidir cualquiera',
-      addRule: 'Nueva regla',
-      clear: 'Limpiar',
-      apply: 'Aplicar',
-      startsWith: 'Inicia con',
-      contains: 'Contiene',
-      notContains: 'No contiene',
-      endsWith: 'Termina con',
-      equals: 'Igual',
-      notEquals: 'No igual',
-      removeRule: 'Eliminar regla',
-      dateIs: 'Fecha es',
-    });
-  }
+  ) {}
 
   private getData(): void {
     this._audioRecordingRestService.getAll().subscribe({
@@ -121,7 +103,7 @@ export class FileListPageComponent implements OnInit {
     const delete$ = this._audioRecordingRestService.delete(rowData._id);
 
     delete$.subscribe({
-      next: (response) => {
+      next: () => {
         this.data = this.data.filter((d) => d._id !== rowData._id);
         this._toaster.success('Registro eliminado de manera correcta', 'Éxito');
         this.unselectRow.emit(rowData);

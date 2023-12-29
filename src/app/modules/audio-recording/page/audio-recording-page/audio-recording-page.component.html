@@ -29,7 +29,7 @@
       <mat-tab label="Transcripción" [disabled]="!audioList.length">
         <app-transcription-page [currentTime]="currentTime" />
       </mat-tab>
-      <mat-tab label="Actas" [disabled]="!audioList.length"> Content 3 </mat-tab>
+      <mat-tab label="Actas" [disabled]="!audioList.length"> <app-records-page /></mat-tab>
     </mat-tab-group>
   </div>
 </div>

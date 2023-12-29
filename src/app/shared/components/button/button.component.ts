@@ -13,7 +13,7 @@ export class ButtonComponent {
   @Input()
   buttonType: ButtonType = 'PRIMARY';
   @Input()
-  isDisabled = false;
+  isDisabled!: boolean;
   @Input()
   isFormButton = false;
   @Input()

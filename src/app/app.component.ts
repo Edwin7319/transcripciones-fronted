@@ -1,5 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { ROUTES_WITHOUT_HEADER } from './constants/constants';
 import { AppStoreService } from './services/app-store.service';
@@ -29,9 +30,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
     private readonly _cdRef: ChangeDetectorRef,
     private readonly _appStore: AppStoreService,
     private readonly _loaderService: LoaderService,
+    private _primeConfig: PrimeNGConfig,
   ) {}
 
   ngOnInit(): void {
+    this.updateTextPrimeComponents();
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.route = event.urlAfterRedirects;
@@ -40,6 +43,24 @@ export class AppComponent implements OnInit, AfterViewChecked {
           return routeWithoutQueryParams === `/${route}`;
         });
       }
+    });
+  }
+
+  private updateTextPrimeComponents(): void {
+    this._primeConfig.setTranslation({
+      matchAll: 'Coincidir todos',
+      matchAny: 'Coincidir cualquiera',
+      addRule: 'Nueva regla',
+      clear: 'Limpiar',
+      apply: 'Aplicar',
+      startsWith: 'Inicia con',
+      contains: 'Contiene',
+      notContains: 'No contiene',
+      endsWith: 'Termina con',
+      equals: 'Igual',
+      notEquals: 'No igual',
+      removeRule: 'Eliminar regla',
+      dateIs: 'Fecha es',
     });
   }
 

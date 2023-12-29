@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AppStoreService } from '../../../../services/app-store.service';
@@ -11,12 +11,11 @@ import { TranscriptionFileRestService } from '../../service/transcription-file.r
   styles: [],
 })
 export class TranscriptionPageComponent implements OnInit, OnDestroy {
-  highlightedSection!: ElementRef;
-
   @Input()
   currentTime = 0;
 
   private subscriptions: Array<Subscription> = [];
+  private audioRecordingId = '';
   location: Array<ITranscriptionLocation> = [];
   transcription = '';
 
@@ -28,9 +27,10 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const store$ = this._appStore.store$.subscribe({
       next: (store) => {
-        if (store.audioRecordingId) {
+        if (store.audioRecordingId && this.audioRecordingId !== store.audioRecordingId) {
           this.getTranscriptionData(store.audioRecordingId);
         }
+        this.audioRecordingId = store.audioRecordingId;
       },
     });
 
@@ -50,6 +50,8 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.location = response.transcriptionArray;
         this.transcription = response.transcription;
+        this._appStore.updateStore('transcription', this.transcription);
+        this._appStore.updateStore('transcriptionFileId', response._id);
       },
     });
   }
