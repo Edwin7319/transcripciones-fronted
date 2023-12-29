@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AppStoreService } from '../../../../services/app-store.service';
-import { TEXT_LOCATION, TEXT_TRANSCRIPTION } from '../../constants/mock';
+import { ITranscriptionLocation } from '../../interface/transcription-file.interface';
 import { TranscriptionFileRestService } from '../../service/transcription-file.rest.service';
 
 @Component({
@@ -10,9 +10,17 @@ import { TranscriptionFileRestService } from '../../service/transcription-file.r
   templateUrl: './transcription-page.component.html',
   styles: [],
 })
-export class TranscriptionPageComponent implements OnInit, OnDestroy {
+export class TranscriptionPageComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('scrollContainer')
+  scrollContainer!: ElementRef;
+  @ViewChild('highlightedSection')
+  highlightedSection!: ElementRef;
+
+  @Input()
+  currentTime = 0;
+
   private subscriptions: Array<Subscription> = [];
-  location = '';
+  location: Array<ITranscriptionLocation> = [];
   transcription = '';
 
   constructor(
@@ -38,12 +46,18 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    if (this.highlightedSection.nativeElement) {
+      this.highlightedSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   getTranscriptionData(audioRecordingId: string): void {
     const get$ = this._transcriptionFileRestService.getOne(audioRecordingId);
 
     get$.subscribe({
       next: (response) => {
-        this.location = response.transcriptionLocation;
+        this.location = response.transcriptionArray;
         this.transcription = response.transcription;
       },
     });

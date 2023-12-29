@@ -1,21 +1,22 @@
 <div class="flex flex-col h-full w-full">
   <app-page-title title="REGISTRO DE AUDIOS" />
 
-  <div class="w-full pb-12" *ngIf="audioList.length">
+  <div class="w-full p-12 border border-gray-50 rounded-2xl bg-gray-100 shadow-lg mb-12" *ngIf="audioList.length">
     <ngx-audio-player
+      #player
+      muted="muted"
       [playlist]="audioList"
-      [displayTitle]="true"
+      [displayTitle]="false"
       [autoPlay]="false"
-      [displayArtist]="true"
+      [displayArtist]="false"
       [displayDuration]="true"
       [expanded]="false"
       [displayVolumeControls]="true"
-      [displayRepeatControls]="false"
+      [displayRepeatControls]="true"
       [disablePositionSlider]="false"
-      (timeupdate)="onEvent($event)"
-      (durationchange)="onEvent($event)"
-      (cuechange)="onEvent($event)"
-    ></ngx-audio-player>
+      (trackEnded)="onTrackEnded($event)"
+    />
+    <button (click)="logCurrentTime()">Click</button>
   </div>
 
   <div>
@@ -27,7 +28,7 @@
         />
       </mat-tab>
       <mat-tab label="Transcripción" [disabled]="!audioList.length">
-        <app-transcription-page />
+        <app-transcription-page [currentTime]="currentTime" />
       </mat-tab>
       <mat-tab label="Third"> Content 3 </mat-tab>
     </mat-tab-group>

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Track, AudioPlayerComponent } from '@khajegan/ngx-audio-player';
+import { Subscription } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
 import { IAudioRecording } from '../../interface/audio-recording.interface';
@@ -11,29 +12,56 @@ type TRowAction = 'select' | 'unselect';
   templateUrl: './audio-recording-page.component.html',
   styles: [],
 })
-export class AudioRecordingPageComponent implements OnInit {
+export class AudioRecordingPageComponent implements OnInit, OnDestroy {
+  @ViewChild('player', { static: false })
+  advancedPlayer!: AudioPlayerComponent;
+
   private apiUrl = '';
+  private subscriptions: Array<Subscription> = [];
+
   audioList: Track[] = [];
+  currentTime = 0;
 
   ngOnInit(): void {
     this.apiUrl = `${environment.api}/registro-de-audio`;
   }
 
-  selectAudioRow(data: IAudioRecording, action: TRowAction): void {
-    if (action === 'unselect') {
-      this.audioList = [];
-      return;
-    }
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
 
-    this.audioList.push({
-      title: data.originalName,
-      link: `${this.apiUrl}/${data.copyName}`,
-      artist: 'Manticore',
-      duration: data.duration,
+  private unsubscribe(): void {
+    this.subscriptions.forEach((s) => {
+      s.unsubscribe();
     });
   }
 
-  onEvent(event: any) {
-    console.log(event);
+  selectAudioRow(data: IAudioRecording, action: TRowAction): void {
+    this.audioList = [];
+
+    if (action === 'unselect') return;
+
+    this.audioList = [
+      {
+        title: data.originalName,
+        link: `${this.apiUrl}/${data.copyName}`,
+        artist: data.name,
+        duration: data.duration,
+      },
+    ];
+  }
+
+  onTrackEnded(_event: any) {
+    this.unsubscribe();
+  }
+
+  logCurrentTime() {
+    if (!this.advancedPlayer.isPlaying) return;
+    const currentTime$ = this.advancedPlayer.audioPlayerService.getCurrentTime().subscribe({
+      next: (time) => {
+        this.currentTime = time;
+      },
+    });
+    this.subscriptions.push(currentTime$);
   }
 }

@@ -2,8 +2,10 @@ import { IBaseSchema } from '../../../interfaces/interfaces';
 
 export interface ITranscriptionLocation {
   range: {
-    init: string;
-    end: string;
+    startString: string;
+    endString: string;
+    start: number;
+    end: number;
   };
   text: string;
 }
