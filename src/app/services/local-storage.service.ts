@@ -20,6 +20,8 @@ export class LocalStorageService {
     return {
       showSidebar: false,
       audioRecordingId: '',
+      transcription: '',
+      transcriptionFileId: '',
     };
   }
 
