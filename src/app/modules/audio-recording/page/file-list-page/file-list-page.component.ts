@@ -12,6 +12,7 @@ import { Utils } from '../../../../utils/utils';
 import { IAudioRecording, IAudioRecordingForm } from '../../interface/audio-recording.interface';
 import { UploadAudioModalComponent } from '../../modal/upload-audio-modal/upload-audio-modal.component';
 import { AudioRecordingRestService } from '../../service/audio-recording.rest.service';
+import { TranscriptionFileRestService } from '../../service/transcription-file.rest.service';
 
 @Component({
   selector: 'app-file-list-page',
@@ -36,6 +37,7 @@ export class FileListPageComponent implements OnInit {
     private readonly _audioRecordingRestService: AudioRecordingRestService,
     private readonly _toaster: ToastrService,
     private readonly _appStore: AppStoreService,
+    private readonly _transcriptionFileService: TranscriptionFileRestService,
   ) {}
 
   private getData(): void {
@@ -107,12 +109,11 @@ export class FileListPageComponent implements OnInit {
   }
 
   getAudio(rowData: IAudioRecording) {
-    const delete$ = this._audioRecordingRestService.getAudio(rowData._id);
+    const download$ = this._transcriptionFileService.downloadFile(rowData);
 
-    delete$.subscribe({
-      next: (response) => {
-        Utils.downloadFile(response, 'application/octet-stream', rowData.originalName);
-        console.log(response);
+    download$.subscribe({
+      next: () => {
+        this._toaster.success('Archivo descargado de manera correcta', 'Éxito');
       },
     });
   }

@@ -2,8 +2,24 @@
   <div class="flex flex-col gap-6">
     <div>
       <div><span class="text-transcription-600 font-bold">Ubicación</span></div>
-      <div class="bg-white p-6 border border-white h-80 overflow-auto mt-2">
-        <pre>{{ location }}</pre>
+      <div class="bg-white p-6 border border-white h-80 overflow-auto mt-2" #scrollContainer>
+        <div class="flex flex-col">
+          <ng-container *ngFor="let section of location">
+            <div
+              #highlightedSection
+              class="mb-8"
+              [ngClass]="{
+                'text-orange-700 font-bold text-xl':
+                  section.range.start < currentTime && section.range.end > currentTime
+              }"
+            >
+              <span>{{ section.range.startString }} --> {{ section.range.endString }}</span>
+              <br />
+              <span>{{ section.text }}</span>
+              <br />
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
     <div>
