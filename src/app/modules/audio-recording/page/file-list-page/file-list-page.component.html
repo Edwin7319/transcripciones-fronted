@@ -1,5 +1,6 @@
 <div class="flex w-full flex-col bg-white p-6 border border-gray-200 rounded-lg">
   <p-table
+    #dataTable
     dataKey="_id"
     [value]="data"
     [rows]="rows"
@@ -15,17 +16,18 @@
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
     (onRowSelect)="rowSelected($event)"
     (onRowUnselect)="rowUnselected($event)"
+    [globalFilterFields]="['code', 'name', 'duration', 'size']"
   >
     <ng-template pTemplate="caption">
       <div class="flex flex-row">
-        <div class="w-5/6 text-white font-bold text-lg">Archivos de audio</div>
+        <div class="w-5/6 text-white font-bold text-lg">Registro de audios</div>
         <div class="w-1/6 items-end">
           <app-button
             text="Nuevo"
             [isFormButton]="false"
             buttonType="LIGHT"
             icon="pi-plus"
-            (clickAction)="openCreateOrEditModal()"
+            (clickAction)="openCreateOrEditModal($event)"
           />
         </div>
       </div>
@@ -38,7 +40,12 @@
           [ngStyle]="{ width: col.width, 'min-width': col.minWidth, 'max-width': col.maxWidth }"
         >
           {{ col.header }}
-          <!--            <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>-->
+          <ng-container *ngIf="col.field === 'code'">
+            <p-columnFilter type="text" field="code" display="menu"
+          /></ng-container>
+          <ng-container *ngIf="col.field === 'name'">
+            <p-columnFilter type="text" field="name" display="menu"
+          /></ng-container>
         </th>
       </tr>
     </ng-template>
@@ -69,7 +76,10 @@
                 pTooltip="Editar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-pencil text-transcription-600" (click)="openCreateOrEditModal(rowData)"></i>
+                <i
+                  class="text-xl pi pi-pencil text-transcription-600"
+                  (click)="openCreateOrEditModal($event, rowData)"
+                ></i>
               </div>
 
               <div
@@ -77,7 +87,7 @@
                 pTooltip="Descargar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-download text-transcription-600" (click)="getAudio(rowData)"></i>
+                <i class="text-xl pi pi-download text-transcription-600" (click)="getAudio($event, rowData)"></i>
               </div>
 
               <div
@@ -85,7 +95,7 @@
                 pTooltip="Eliminar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-trash text-red-800" (click)="delete(rowData)"></i>
+                <i class="text-xl pi pi-trash text-red-800" (click)="delete($event, rowData)"></i>
               </div>
             </div>
           </td>

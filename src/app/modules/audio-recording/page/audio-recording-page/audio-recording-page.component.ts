@@ -49,13 +49,17 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
         duration: data.duration,
       },
     ];
+
+    setTimeout(() => {
+      this.trackingCurrentTime();
+    }, 1000);
   }
 
   onTrackEnded(_event: any) {
     this.unsubscribe();
   }
 
-  logCurrentTime() {
+  private trackingCurrentTime() {
     if (!this.advancedPlayer.isPlaying) return;
     const currentTime$ = this.advancedPlayer.audioPlayerService.getCurrentTime().subscribe({
       next: (time) => {

@@ -9,8 +9,7 @@
               #highlightedSection
               class="mb-8"
               [ngClass]="{
-                'text-orange-700 font-bold text-xl':
-                  section.range.start < currentTime && section.range.end > currentTime
+                'text-teal-500 font-bold text-xl': section.range.start < currentTime && section.range.end > currentTime
               }"
             >
               <span>{{ section.range.startString }} --> {{ section.range.endString }}</span>

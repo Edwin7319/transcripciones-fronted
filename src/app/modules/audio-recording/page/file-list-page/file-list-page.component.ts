@@ -2,18 +2,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PrimeNGConfig } from 'primeng/api';
 import { TableRowSelectEvent, TableRowUnSelectEvent } from 'primeng/table';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { AUDIO_RECORDING_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../../constants/constants';
 import { ITableColumn } from '../../../../interfaces/interfaces';
 import { AppStoreService } from '../../../../services/app-store.service';
-import { Utils } from '../../../../utils/utils';
 import { IAudioRecording, IAudioRecordingForm } from '../../interface/audio-recording.interface';
 import { UploadAudioModalComponent } from '../../modal/upload-audio-modal/upload-audio-modal.component';
 import { AudioRecordingRestService } from '../../service/audio-recording.rest.service';
 import { TranscriptionFileRestService } from '../../service/transcription-file.rest.service';
-
 @Component({
   selector: 'app-file-list-page',
   templateUrl: './file-list-page.component.html',
@@ -38,7 +37,24 @@ export class FileListPageComponent implements OnInit {
     private readonly _toaster: ToastrService,
     private readonly _appStore: AppStoreService,
     private readonly _transcriptionFileService: TranscriptionFileRestService,
-  ) {}
+    private _primeConfig: PrimeNGConfig,
+  ) {
+    this._primeConfig.setTranslation({
+      matchAll: 'Coincidir todos',
+      matchAny: 'Coincidir cualquiera',
+      addRule: 'Nueva regla',
+      clear: 'Limpiar',
+      apply: 'Aplicar',
+      startsWith: 'Inicia con',
+      contains: 'Contiene',
+      notContains: 'No contiene',
+      endsWith: 'Termina con',
+      equals: 'Igual',
+      notEquals: 'No igual',
+      removeRule: 'Eliminar regla',
+      dateIs: 'Fecha es',
+    });
+  }
 
   private getData(): void {
     this._audioRecordingRestService.getAll().subscribe({
@@ -54,7 +70,10 @@ export class FileListPageComponent implements OnInit {
     this.getData();
   }
 
-  openCreateOrEditModal(rowData?: IAudioRecording): void {
+  openCreateOrEditModal(event: MouseEvent, rowData?: IAudioRecording): void {
+    if (rowData) {
+      event.stopPropagation();
+    }
     const dialogRef = this._dialog.open(UploadAudioModalComponent, {
       data: rowData,
     });
@@ -93,7 +112,8 @@ export class FileListPageComponent implements OnInit {
     });
   }
 
-  async delete(rowData: IAudioRecording) {
+  async delete(event: MouseEvent, rowData: IAudioRecording) {
+    event.stopPropagation();
     const response = await this.showConfirmModal(rowData);
 
     if (response.isDismissed) return;
@@ -104,11 +124,13 @@ export class FileListPageComponent implements OnInit {
       next: (response) => {
         this.data = this.data.filter((d) => d._id !== rowData._id);
         this._toaster.success('Registro eliminado de manera correcta', 'Éxito');
+        this.unselectRow.emit(rowData);
       },
     });
   }
 
-  getAudio(rowData: IAudioRecording) {
+  getAudio(event: MouseEvent, rowData: IAudioRecording) {
+    event.stopPropagation();
     const download$ = this._transcriptionFileService.downloadFile(rowData);
 
     download$.subscribe({

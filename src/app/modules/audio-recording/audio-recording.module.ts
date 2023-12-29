@@ -4,7 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxAudioPlayerModule } from '@khajegan/ngx-audio-player';
+import { ButtonModule } from 'primeng/button';
 import { DockModule } from 'primeng/dock';
+import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 
 import { PipesModule } from '../../pipes/pipes.module';
@@ -35,6 +37,8 @@ import { TranscriptionPageComponent } from './page/transcription-page/transcript
     MatTabsModule,
     NgxAudioPlayerModule,
     PipesModule,
+    ButtonModule,
+    InputTextModule,
   ],
 })
 export class AudioRecordingModule {}

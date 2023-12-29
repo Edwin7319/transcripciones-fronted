@@ -1,3 +1,5 @@
+$audio-player: #31b38c;
+
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
   color: $primary-color !important;
 }
@@ -11,6 +13,10 @@
 }
 
 .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label, .mat-accent .mat-slider-track-fill {
-  background-color: $primary-color;
+  background-color: $audio-player;
 }
 
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background: #eef3f8 !important;
+  color: $audio-player;;
+}
