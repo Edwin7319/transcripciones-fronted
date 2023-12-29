@@ -86,3 +86,8 @@ export const REPORT_TABLE_COLUMNS: Array<ITableColumn> = [
     maxWidth: '140px',
   },
 ];
+
+export enum EFileType {
+  TXT = 'application/octet-stream',
+  DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+}

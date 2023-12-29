@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
+import { EFileType } from '../../../constants/constants';
+import { Utils } from '../../../utils/utils';
 import { IRecords, IRecordsForm, IRecordsPagination } from '../interface/records';
 
 @Injectable({
@@ -28,5 +30,19 @@ export class RecordsRestService {
 
   delete(id: string): Observable<boolean> {
     return this._httpClient.delete<boolean>(`${this.url}/${id}`);
+  }
+
+  downloadDocxFile(record: IRecords): Observable<string> {
+    return this._httpClient
+      .get(`${this.url}/descargar-word/${record._id}`, {
+        responseType: 'arraybuffer',
+      })
+      .pipe(
+        map((buffer: ArrayBuffer) => {
+          const fileName = record.name.replaceAll(' ', '_');
+          Utils.downloadFile(buffer, EFileType.DOCX, `${fileName}.docx`);
+          return 'Ok';
+        }),
+      );
   }
 }
