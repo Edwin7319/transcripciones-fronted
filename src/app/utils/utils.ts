@@ -29,4 +29,9 @@ export class Utils {
       document.body.removeChild(link);
     }
   };
+
+  static validateFileName = (name: string): boolean => {
+    const regex = /^[a-zA-Z0-9]+$/;
+    return regex.test(name);
+  };
 }

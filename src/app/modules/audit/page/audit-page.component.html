@@ -64,15 +64,19 @@
                 </div>
               </div>
 
-              <div class="flex flex-row justify-center gap-5 items-center" *ngIf="col.field === 'id'">
-                <div
-                  class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
-                  pTooltip="Editar"
-                  tooltipPosition="left"
-                >
-                  <i class="text-xl pi pi-pencil text-transcription-600"></i>
-                </div>
+              <div class="flex justify-center" *ngIf="col.field === 'action'">
+                {{ rowData[col.field] }}
               </div>
+
+              <!--              <div class="flex flex-row justify-center gap-5 items-center" *ngIf="col.field === 'id'">-->
+              <!--                <div-->
+              <!--                  class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"-->
+              <!--                  pTooltip="Editar"-->
+              <!--                  tooltipPosition="left"-->
+              <!--                >-->
+              <!--                  <i class="text-xl pi pi-pencil text-transcription-600"></i>-->
+              <!--                </div>-->
+              <!--              </div>-->
             </td>
           </ng-container>
         </tr>
