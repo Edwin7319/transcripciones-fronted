@@ -115,17 +115,24 @@ export const AUDIT_TABLE_COLUMNS: Array<ITableColumn> = [
     maxWidth: '100px',
   },
   {
+    field: 'action',
+    header: 'Acción',
+    minWidth: '40px',
+    width: '60px',
+    maxWidth: '100px',
+  },
+  {
     field: 'difference',
     header: 'Diferencia',
     minWidth: '100px',
     width: '150px',
     maxWidth: '200px',
   },
-  {
-    field: 'id',
-    header: 'Acciones',
-    minWidth: '60px',
-    width: '100px',
-    maxWidth: '140px',
-  },
+  // {
+  //   field: 'id',
+  //   header: 'Acciones',
+  //   minWidth: '60px',
+  //   width: '100px',
+  //   maxWidth: '140px',
+  // },
 ];

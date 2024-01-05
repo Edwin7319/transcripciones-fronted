@@ -21,16 +21,16 @@ export class SidebarComponent {
       routerLink: APP_ROUTES.audioRecording,
     },
     {
-      label: 'Auditoria',
+      label: 'Histórico',
       items: [
         {
           label: 'Registro de audio',
           routerLink: APP_ROUTES.audioRecordingAudit,
         },
-        {
-          label: 'Transcripciones',
-          routerLink: APP_ROUTES.audioRecording,
-        },
+        // {
+        //   label: 'Transcripciones',
+        //   routerLink: APP_ROUTES.audioRecording,
+        // },
         {
           label: 'Actas',
           routerLink: APP_ROUTES.recordsAudit,

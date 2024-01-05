@@ -5,6 +5,7 @@ import { debounceTime, Subscription } from 'rxjs';
 
 import { FORM_DEBOUNCE_TIME } from '../../../../constants/constants';
 import { FormUtil } from '../../../../utils/form.util';
+import { Utils } from '../../../../utils/utils';
 import { IAudioRecordingForm } from '../../interface/audio-recording.interface';
 
 @Component({
@@ -18,6 +19,7 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
   selectedFile: File | undefined;
   formValues: IAudioRecordingForm | undefined;
   duration = 0;
+  fileErrorMessage = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -83,9 +85,17 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any): void {
     this.selectedFile = undefined;
+    this.fileErrorMessage = '';
     const selectedFile = event.target?.files[0];
 
     if (selectedFile) {
+      const fileName = selectedFile.name.split('.')[0];
+
+      if (!Utils.validateFileName(fileName)) {
+        this.fileErrorMessage = 'El nombre de archivo no tene un formato válido';
+        return;
+      }
+
       const audioElement = document.createElement('audio');
 
       audioElement.src = URL.createObjectURL(selectedFile);
