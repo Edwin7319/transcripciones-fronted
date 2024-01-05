@@ -18,6 +18,15 @@ const routes: Routes = [
     },
   },
   {
+    path: 'private',
+    loadChildren: () => import('../audit/audit.module').then((m) => m.AuditModule),
+    data: {
+      breadcrumb: {
+        label: 'Auditoria',
+      },
+    },
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full',

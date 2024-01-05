@@ -1,0 +1,87 @@
+<div class="flex flex-col h-full w-full">
+  <app-page-title title="AUDITORIA" />
+
+  <div class="flex w-full flex-col bg-gray-100 p-6 border border-gray-200 rounded-lg">
+    <p-table
+      dataKey="_id"
+      [value]="data"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [columns]="columns"
+      [rowsPerPageOptions]="rowsPerPage"
+      [paginator]="true"
+      [showCurrentPageReport]="true"
+      [scrollable]="true"
+      scrollHeight="400px"
+      styleClass="p-datatable-md p-datatable-striped"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex flex-row">
+          <div class="w-5/6 text-white font-bold text-lg">Auditoria</div>
+          <div class="w-1/6 items-end"></div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th
+            style="text-align: center"
+            *ngFor="let col of columns"
+            [ngStyle]="{ width: col.width, 'min-width': col.minWidth, 'max-width': col.maxWidth }"
+          >
+            {{ col.header }}
+            <ng-container *ngIf="col.field === 'schema'">
+              <p-columnFilter type="text" field="code" display="menu"
+            /></ng-container>
+            <ng-container *ngIf="col.field === 'user'">
+              <p-columnFilter type="text" field="name" display="menu"
+            /></ng-container>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <ng-container *ngFor="let col of columns">
+            <td
+              [ngStyle]="{ width: col.width, 'min-width': col.minWidth, 'max-width': col.maxWidth }"
+              style="text-align: center !important"
+            >
+              <div class="flex justify-center" *ngIf="col.field === 'schema'">
+                {{ rowData[col.field] }}
+              </div>
+              <div class="flex justify-center" *ngIf="col.field === 'user'">
+                {{ rowData[col.field] }}
+              </div>
+              <div class="flex justify-center" *ngIf="col.field === 'creationTime'">
+                {{ (rowData[col.field] | date: 'YYYY-MM-dd HH:mm') || '-' }}
+              </div>
+              <div *ngIf="col.field === 'difference'" style="text-align: left !important">
+                <div class="flex flex-col" *ngFor="let difference of rowData[col.field]">
+                  <div>
+                    <span>Propiedad: {{ difference.path[0] }}</span> <br />
+                    <span>Cambios: {{ difference.lhs }} -> {{ difference.rhs }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-row justify-center gap-5 items-center" *ngIf="col.field === 'id'">
+                <div
+                  class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+                  pTooltip="Editar"
+                  tooltipPosition="left"
+                >
+                  <i class="text-xl pi pi-pencil text-transcription-600"></i>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">No se ha encontrado registro</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
