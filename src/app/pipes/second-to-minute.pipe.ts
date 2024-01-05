@@ -9,9 +9,14 @@ export class SecondToMinutePipe implements PipeTransform {
       return 'N/A';
     }
 
-    const minutes = Math.floor(value / 60);
+    const hours = Math.floor(value / 3600);
+    const minutes = Math.floor((value % 3600) / 60);
     const seconds = Math.floor(value % 60);
 
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${this.completeTimeValue(hours)}:${this.completeTimeValue(minutes)}:${seconds}`;
+  }
+
+  private completeTimeValue(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
 }

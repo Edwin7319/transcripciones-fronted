@@ -20,6 +20,23 @@ export class SidebarComponent {
       label: 'Registro de audio',
       routerLink: APP_ROUTES.audioRecording,
     },
+    {
+      label: 'Auditoria',
+      items: [
+        {
+          label: 'Registro de audio',
+          routerLink: APP_ROUTES.audioRecordingAudit,
+        },
+        {
+          label: 'Transcripciones',
+          routerLink: APP_ROUTES.audioRecording,
+        },
+        {
+          label: 'Actas',
+          routerLink: APP_ROUTES.recordsAudit,
+        },
+      ],
+    },
   ];
 
   constructor(

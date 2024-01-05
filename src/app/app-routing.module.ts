@@ -5,7 +5,7 @@ import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   {
-    path: 'descuentos',
+    path: 'transcripcion',
     loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
     data: {
       breadcrumb: {
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'descuentos',
+    redirectTo: 'transcripcion',
     pathMatch: 'full',
   },
 ];
