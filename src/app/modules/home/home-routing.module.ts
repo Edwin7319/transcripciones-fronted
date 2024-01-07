@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomePageComponent } from './page/home-page.component';
-
 const routes: Routes = [
-  {
-    path: 'inicio',
-    component: HomePageComponent,
-  },
+  // {
+  //   path: 'inicio',
+  //   component: HomePageComponent,
+  // },
   {
     path: 'registro-de-audio',
     loadChildren: () => import('../audio-recording/audio-recording.module').then((m) => m.AudioRecordingModule),
@@ -22,13 +20,17 @@ const routes: Routes = [
     loadChildren: () => import('../audit/audit.module').then((m) => m.AuditModule),
     data: {
       breadcrumb: {
-        label: 'Auditoria',
+        label: 'Historial',
       },
     },
   },
   {
+    path: 'public',
+    loadChildren: () => import('../login/login.module').then((m) => m.LoginModule),
+  },
+  {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'public',
     pathMatch: 'full',
   },
 ];
