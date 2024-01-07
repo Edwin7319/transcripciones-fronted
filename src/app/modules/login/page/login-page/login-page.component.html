@@ -21,7 +21,13 @@
         </ng-template>
 
         <div class="mt-8">
-          <app-button buttonType="PRIMARY" text="Ingresar" [isDisabled]="false"></app-button>
+          <app-button
+            buttonType="PRIMARY"
+            text="Ingresar"
+            [isDisabled]="false"
+            [isFormButton]="true"
+            (clickAction)="goToHomePage()"
+          ></app-button>
         </div>
         <div class="mt-6 w-full text-right">
           <a
