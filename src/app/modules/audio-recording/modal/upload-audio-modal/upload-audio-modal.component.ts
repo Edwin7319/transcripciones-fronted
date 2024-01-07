@@ -78,8 +78,10 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
   acceptModal(): void {
     this.dialogRef.close({
       ...this.formValues,
-      file: this.selectedFile,
-      duration: this.duration,
+      ...(!this.data && {
+        file: this.selectedFile,
+        duration: this.duration,
+      }),
     });
   }
 

@@ -1,0 +1,43 @@
+<div class="flex h-full w-full flex-wrap bg-gray-100">
+  <div class="md:w-7/12 h-full md:block hidden">
+    <img class="w-full h-full object-cover" src="assets/img/login.jpg" alt="login__image" />
+  </div>
+  <div class="w-full md:w-5/12 flex flex-col items-center justify-center h-full px-2 md:px-12 text-gray-900">
+    <div class="-pt-10 pb-10">
+      <img class="w-full h-32" src="assets/img/logo-manti.png" alt="logo_manti" />
+    </div>
+    <div class="flex-col w-full px-9">
+      <div class="font-bold text-4xl">Bienvenido</div>
+      <div>
+        <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese sus credenciales</div>
+        <div *ngIf="!showRecoveryPassForm; else notShowRecoveryForm">
+          <app-login-form />
+        </div>
+        <ng-template #notShowRecoveryForm>
+          <div class="animate__animated animate__fadeInLeft">
+            recovery
+            <app-login-form />
+          </div>
+        </ng-template>
+
+        <div class="mt-8">
+          <app-button
+            buttonType="PRIMARY"
+            text="Ingresar"
+            [isDisabled]="false"
+            [isFormButton]="true"
+            (clickAction)="goToHomePage()"
+          ></app-button>
+        </div>
+        <div class="mt-6 w-full text-right">
+          <a
+            class="text-transcription-800 cursor-pointer text-sm hover:text-transcription-900 underline"
+            (click)="goToRecoverPassword()"
+          >
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
