@@ -18,11 +18,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
   showResponsiveSideBar = false;
   route = '';
   user = {
-    photo:
-      // eslint-disable-next-line max-len
-      'https://media.licdn.com/dms/image/D4E03AQH-l0bptmnMMQ/profile-displayphoto-shrink_800_800/0/1695403710546?e=1707350400&v=beta&t=LLZyZMMriVPs-01XG7nAL-1hmlTeJSgRb7Ci9vpnUCo',
-    email: 'edwin@manticore.com.ec',
-    name: 'Edwin Guamushig',
+    photo: 'assets/img/user.svg',
+    email: 'usuario@email.com',
+    name: 'Usuario',
   };
 
   constructor(
