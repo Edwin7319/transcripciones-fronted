@@ -52,7 +52,7 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.trackingCurrentTime();
-    }, 1000);
+    }, 1500);
   }
 
   onTrackEnded(_event: any) {

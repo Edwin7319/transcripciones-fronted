@@ -108,7 +108,7 @@
         <div class="sticky top-0" style="z-index: 999 !important" *ngIf="showHeader">
           <app-header (clickAction)="closeResponsiveSidebar()" [ruta]="route"></app-header>
         </div>
-        <div class="mt-5 ml-14">
+        <div class="mt-5 ml-14" *ngIf="showHeader">
           <xng-breadcrumb separator="/" [autoGenerate]="false">
             <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
               <mat-icon *ngIf="info">{{ info }}</mat-icon>
@@ -118,10 +118,10 @@
             </ng-container>
           </xng-breadcrumb>
         </div>
-        <div class="flex-1 w-full lg:px-10 md:px-5 px-5">
+        <div class="flex-1 w-full">
           <router-outlet> </router-outlet>
         </div>
-        <div>
+        <div *ngIf="showHeader">
           <app-footer></app-footer>
         </div>
       </div>
