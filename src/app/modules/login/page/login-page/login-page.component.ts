@@ -16,7 +16,11 @@ export class LoginPageComponent {
     this.showRecoveryPassForm = true;
   }
 
+  gotToLogin(): void {
+    this.showRecoveryPassForm = false;
+  }
+
   goToHomePage(): void {
-    this._router.navigate([APP_ROUTES.audioRecording]);
+    void this._router.navigate([APP_ROUTES.audioRecording]);
   }
 }
