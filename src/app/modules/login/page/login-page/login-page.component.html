@@ -7,37 +7,54 @@
       <img class="w-full h-32" src="assets/img/no-logo.jpg" alt="logo__compania" />
     </div>
     <div class="flex-col w-full px-9">
-      <div class="font-bold text-4xl">Bienvenido</div>
-      <div>
-        <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese sus credenciales</div>
-        <div *ngIf="!showRecoveryPassForm; else notShowRecoveryForm">
+      <ng-container *ngIf="!showRecoveryPassForm; else notShowRecoveryForm">
+        <div class="animate__animated animate__fadeInLeft">
+          <div class="font-bold text-4xl">Bienvenido</div>
+          <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese sus credenciales</div>
           <app-login-form />
-        </div>
-        <ng-template #notShowRecoveryForm>
-          <div class="animate__animated animate__fadeInLeft">
-            recovery
-            <app-login-form />
+          <div class="mt-8">
+            <app-button
+              buttonType="PRIMARY"
+              text="Ingresar"
+              [isDisabled]="false"
+              [isFormButton]="true"
+              (clickAction)="goToHomePage()"
+            ></app-button>
           </div>
-        </ng-template>
-
-        <div class="mt-8">
-          <app-button
-            buttonType="PRIMARY"
-            text="Ingresar"
-            [isDisabled]="false"
-            [isFormButton]="true"
-            (clickAction)="goToHomePage()"
-          ></app-button>
+          <div class="mt-6 w-full text-right">
+            <a
+              class="text-transcription-800 cursor-pointer text-sm hover:text-transcription-900 underline"
+              (click)="goToRecoverPassword()"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
         </div>
-        <div class="mt-6 w-full text-right">
-          <a
-            class="text-transcription-800 cursor-pointer text-sm hover:text-transcription-900 underline"
-            (click)="goToRecoverPassword()"
-          >
-            ¿Olvidaste tu contraseña?
-          </a>
+      </ng-container>
+      <ng-template #notShowRecoveryForm>
+        <div class="animate__animated animate__fadeInLeft">
+          <div class="font-bold text-4xl">Recuperar contraseña</div>
+          <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese el correo registrado en el sistema</div>
+          <app-recovery-password-form />
+          <div class="mt-8">
+            <app-button
+              buttonType="PRIMARY"
+              text="Generar contraseña"
+              [isDisabled]="false"
+              [isFormButton]="true"
+              (clickAction)="goToHomePage()"
+            ></app-button>
+          </div>
+          <div class="mt-6 w-full text-right">
+            <a
+              class="text-transcription-800 cursor-pointer text-sm hover:text-transcription-900 underline"
+              (click)="gotToLogin()"
+            >
+              Tengo una cuenta activa
+            </a>
+          </div>
         </div>
-      </div>
+      </ng-template>
     </div>
   </div>
 </div>
