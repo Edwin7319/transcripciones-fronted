@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IConfig } from 'ngx-mask/lib/ngx-mask.config';
 
@@ -53,6 +53,8 @@ export class InputComponent implements OnChanges {
   objectError = Object;
   control!: FormControl;
 
+  showPassword = false;
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['formGroup']) {
       this.control = this.formGroup.get(this.id) as FormControl;
@@ -61,5 +63,9 @@ export class InputComponent implements OnChanges {
 
   blur(): void {
     this.blurEvent.emit(true);
+  }
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
   }
 }

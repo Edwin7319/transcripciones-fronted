@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 
@@ -14,12 +15,12 @@ export class AuthInterceptorService implements HttpInterceptor {
     private readonly _router: Router,
     private readonly _loaderService: LoaderService,
     private readonly _toaster: ToastrService,
+    private readonly _cookieService: CookieService,
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const usuario = 'EDWIN';
-    // const token = localStorage.getItem(keyToken);
-    const token = '';
+    const token = this._cookieService.get('token');
     const request = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

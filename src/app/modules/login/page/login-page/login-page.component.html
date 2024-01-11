@@ -11,12 +11,12 @@
         <div class="animate__animated animate__fadeInLeft">
           <div class="font-bold text-4xl">Bienvenido</div>
           <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese sus credenciales</div>
-          <app-login-form />
+          <app-login-form (signInEvent)="listenLoginForm($event)" />
           <div class="mt-8">
             <app-button
               buttonType="PRIMARY"
               text="Ingresar"
-              [isDisabled]="false"
+              [isDisabled]="!loginFormValues"
               [isFormButton]="true"
               (clickAction)="goToHomePage()"
             ></app-button>
