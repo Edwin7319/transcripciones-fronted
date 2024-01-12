@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 import { ICONS } from '../../../constants/constants';
+import { APP_ROUTES } from '../../../constants/routes';
 
 interface INavbarItem {
   icon: string;
@@ -25,13 +27,14 @@ export class HeaderComponent implements OnDestroy {
   @Input()
   ruta = '';
 
-  subscriptions: Array<Subscription> = [];
-
+  @Input()
   user = {
     photo: 'assets/img/user.svg',
     email: 'usuario@email.com',
     name: 'Usuario',
   };
+
+  subscriptions: Array<Subscription> = [];
 
   icons = ICONS;
   existUser = false;
@@ -46,12 +49,17 @@ export class HeaderComponent implements OnDestroy {
       action: (): void => {
         this._router.navigate([]).then(() => {
           this.showUserOptions = false;
+          this._cookieService.deleteAll();
+          this._router.navigate([APP_ROUTES.login]);
         });
       },
     },
   ];
 
-  constructor(private readonly _router: Router) {
+  constructor(
+    private readonly _router: Router,
+    private readonly _cookieService: CookieService,
+  ) {
     this.existUser = true;
   }
 

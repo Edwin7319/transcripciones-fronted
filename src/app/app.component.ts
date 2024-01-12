@@ -1,8 +1,10 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 import { PrimeNGConfig } from 'primeng/api';
 
-import { ROUTES_WITHOUT_HEADER } from './constants/constants';
+import { ECookie, ROUTES_WITHOUT_HEADER } from './constants/constants';
 import { AppStoreService } from './services/app-store.service';
 import { LoaderService } from './services/loader.service';
 
@@ -29,9 +31,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
     private readonly _appStore: AppStoreService,
     private readonly _loaderService: LoaderService,
     private _primeConfig: PrimeNGConfig,
+    private readonly _cookieService: CookieService,
   ) {}
 
   ngOnInit(): void {
+    this.setUserInfo();
     this.updateTextPrimeComponents();
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -42,6 +46,13 @@ export class AppComponent implements OnInit, AfterViewChecked {
         });
       }
     });
+  }
+
+  private setUserInfo(): void {
+    this.user = {
+      ...this.user,
+      ...jwtDecode(this._cookieService.get(ECookie.token)),
+    };
   }
 
   private updateTextPrimeComponents(): void {

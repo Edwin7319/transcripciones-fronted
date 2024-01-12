@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { IAppStore } from './app-store.service';
+import { IAppStore, INITIAL_STATE } from './app-store.service';
 
 export enum LocalStorageEnum {}
 
@@ -18,10 +18,7 @@ export class LocalStorageService {
 
   getAppStore(): IAppStore {
     return {
-      showSidebar: false,
-      audioRecordingId: '',
-      transcription: '',
-      transcriptionFileId: '',
+      ...INITIAL_STATE,
     };
   }
 

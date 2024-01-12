@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TableRowSelectEvent, TableRowUnSelectEvent } from 'primeng/table';
 import Swal, { SweetAlertResult } from 'sweetalert2';
@@ -31,7 +30,6 @@ export class FileListPageComponent implements OnInit {
 
   constructor(
     private readonly _dialog: MatDialog,
-    private readonly _router: Router,
     private readonly _audioRecordingRestService: AudioRecordingRestService,
     private readonly _toaster: ToastrService,
     private readonly _appStore: AppStoreService,

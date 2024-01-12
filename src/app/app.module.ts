@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrModule } from 'ngx-toastr';
 import { BlockUIModule } from 'primeng/blockui';
 import { BreadcrumbModule } from 'xng-breadcrumb';
@@ -31,11 +32,16 @@ import { SharedModule } from './shared/shared.module';
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       preventDuplicates: true,
+      extendedTimeOut: 50000,
+      closeButton: true,
+      progressAnimation: 'decreasing',
+      progressBar: true,
     }),
   ],
   providers: [
     LoaderService,
     AppStoreService,
+    CookieService,
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {
