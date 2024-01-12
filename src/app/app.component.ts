@@ -35,7 +35,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit(): void {
-    this.setUserInfo();
     this.updateTextPrimeComponents();
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -44,6 +43,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
         this.showHeader = !ROUTES_WITHOUT_HEADER.some((route) => {
           return routeWithoutQueryParams === `/${route}`;
         });
+        if (this.showHeader) {
+          this.setUserInfo();
+        }
       }
     });
   }
