@@ -136,3 +136,14 @@ export const AUDIT_TABLE_COLUMNS: Array<ITableColumn> = [
   //   maxWidth: '140px',
   // },
 ];
+
+export enum EPasswordStatus {
+  GENERATED = 'Generada',
+  RECOVERY = 'Recuperada',
+  VALIDATED = 'Validada',
+}
+
+export enum ECookie {
+  token = 'token',
+  passStatus = 'status',
+}

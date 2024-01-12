@@ -35,14 +35,14 @@
         <div class="animate__animated animate__fadeInLeft">
           <div class="font-bold text-4xl">Recuperar contraseña</div>
           <div class="font-normal mt-7 mb-7 text-sm">Por favor ingrese el correo registrado en el sistema</div>
-          <app-recovery-password-form />
+          <app-recovery-password-form (recoveryPassEvent)="listenRecoveryPasswordForm($event)" />
           <div class="mt-8">
             <app-button
               buttonType="PRIMARY"
               text="Generar contraseña"
-              [isDisabled]="false"
+              [isDisabled]="!recoveryPasswordFormValue"
               [isFormButton]="true"
-              (clickAction)="goToHomePage()"
+              (clickAction)="recoveryPassword()"
             ></app-button>
           </div>
           <div class="mt-6 w-full text-right">
