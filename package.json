@@ -27,6 +27,7 @@
     "animate.css": "^4.1.1",
     "moment-timezone": "^0.5.43",
     "ng-zorro-antd": "^16.2.2",
+    "ngx-cookie-service": "^17.0.1",
     "ngx-mask": "^17.0.0",
     "ngx-toastr": "^18.0.0",
     "primeicons": "^6.0.1",
