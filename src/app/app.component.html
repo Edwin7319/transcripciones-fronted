@@ -106,7 +106,7 @@
     <main class="flex-1">
       <div class="flex flex-col h-screen bg-gray-50">
         <div class="sticky top-0" style="z-index: 999 !important" *ngIf="showHeader">
-          <app-header (clickAction)="closeResponsiveSidebar()" [ruta]="route"></app-header>
+          <app-header (clickAction)="closeResponsiveSidebar()" [ruta]="route" [user]="user"></app-header>
         </div>
         <div class="mt-5 ml-14" *ngIf="showHeader">
           <xng-breadcrumb separator="/" [autoGenerate]="false">

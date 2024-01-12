@@ -1,0 +1,60 @@
+<div class="md:px-6 px-1 md:py-2">
+  <div mat-dialog-title class="text-center border-b border-b-gray-200">
+    <span class="text-transcription-500 font-bold text-2xl">Registro de usuario</span>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form" (keyup.enter)="eventSubmit()">
+      <div class="grid grid-cols-1 gap-4 mt-10">
+        <app-input
+          id="name"
+          label="Nombre"
+          placeholder="Ej: Alvaro"
+          help="Ingrese el nombre de usuario"
+          [type]="'text'"
+          [formGroup]="form"
+          [required]="true"
+        />
+        <app-input
+          id="lastName"
+          label="Apellido"
+          placeholder="Ej: Espinoza"
+          help="Ingrese el apellido de usuario"
+          [type]="'text'"
+          [formGroup]="form"
+          [required]="true"
+        />
+        <app-input
+          id="email"
+          label="Correo"
+          placeholder="Ej: alvaro.espinoza@email.com"
+          help="Ingrese el correo de usuario"
+          [type]="'text'"
+          [formGroup]="form"
+          [required]="true"
+        />
+        <app-autocomplete
+          id="roles"
+          label="Roles"
+          placeholder="Ej: Administrador"
+          help="Seleccione una opción"
+          [options]="roles"
+          [formGroup]="form"
+          [required]="true"
+          [isMultiple]="true"
+        />
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex flex-row">
+      <app-button [isFormButton]="true" text="CANCELAR" buttonType="SECONDARY" (clickAction)="closeModal()" />
+      <app-button
+        [isDisabled]="!formValues"
+        [isFormButton]="true"
+        text="ACEPTAR"
+        buttonType="PRIMARY"
+        (clickAction)="acceptModal()"
+      />
+    </div>
+  </mat-dialog-actions>
+</div>
