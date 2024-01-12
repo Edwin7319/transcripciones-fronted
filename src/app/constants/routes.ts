@@ -10,4 +10,5 @@ export const APP_ROUTES = {
   recordsAudit: `transcripcion/private/auditoria/${ELogSchema.RECORDS}`,
   login: `transcripcion/public/login`,
   recoveryPassword: `transcripcion/public/recovery-password`,
+  user: `transcripcion/private/gestion-usuarios`,
 };

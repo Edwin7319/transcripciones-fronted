@@ -25,6 +25,7 @@
     "@ng-select/ng-select": "^11.2.0",
     "@sweetalert2/ngx-sweetalert2": "^12.2.0",
     "animate.css": "^4.1.1",
+    "jwt-decode": "^4.0.0",
     "moment-timezone": "^0.5.43",
     "ng-zorro-antd": "^16.2.2",
     "ngx-cookie-service": "^17.0.1",

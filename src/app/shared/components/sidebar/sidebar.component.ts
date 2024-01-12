@@ -14,7 +14,12 @@ export class SidebarComponent {
   list: MenuItem[] = [
     {
       label: 'Administración',
-      routerLink: APP_ROUTES.home,
+      items: [
+        {
+          label: 'Registro de usuarios',
+          routerLink: APP_ROUTES.user,
+        },
+      ],
     },
     {
       label: 'Registro de audio',
@@ -27,10 +32,7 @@ export class SidebarComponent {
           label: 'Registro de audio',
           routerLink: APP_ROUTES.audioRecordingAudit,
         },
-        // {
-        //   label: 'Transcripciones',
-        //   routerLink: APP_ROUTES.audioRecording,
-        // },
+
         {
           label: 'Actas',
           routerLink: APP_ROUTES.recordsAudit,
@@ -39,15 +41,9 @@ export class SidebarComponent {
     },
   ];
 
-  constructor(
-    private readonly _router: Router,
-    // private readonly _idZonalService: EstadoGlobalAppService,
-  ) {}
+  constructor(private readonly _router: Router) {}
 
   executeAction(opcionHija: MenuItem) {
-    if (opcionHija.tabindex) {
-      // this._idZonalService.actualizarOpcionMenu(opcionHija.tabindex);
-    }
     void this._router.navigate([opcionHija.routerLink]);
   }
 }

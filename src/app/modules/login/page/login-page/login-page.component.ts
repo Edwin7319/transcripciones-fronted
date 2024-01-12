@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -44,6 +44,7 @@ export class LoginPageComponent {
 
     login$.subscribe({
       next: (val) => {
+        this._cookieService.deleteAll();
         this._cookieService.set(ECookie.token, val.token, { sameSite: 'Lax' });
         this._cookieService.set(ECookie.passStatus, val.passwordStatus, { sameSite: 'Lax' });
 
