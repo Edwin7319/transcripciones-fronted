@@ -23,7 +23,7 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
   currentTime = 0;
 
   ngOnInit(): void {
-    this.apiUrl = `${environment.api}/registro-de-audio`;
+    this.apiUrl = `${environment.api}/registro-de-audio/reproducir`;
   }
 
   ngOnDestroy(): void {
