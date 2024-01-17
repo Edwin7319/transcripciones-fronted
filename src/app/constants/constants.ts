@@ -95,7 +95,7 @@ export enum EFileType {
 export const AUDIT_TABLE_COLUMNS: Array<ITableColumn> = [
   {
     field: 'schema',
-    header: 'Esquema',
+    header: 'Módulo',
     minWidth: '40px',
     width: '60px',
     maxWidth: '100px',

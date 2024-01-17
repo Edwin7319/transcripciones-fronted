@@ -19,12 +19,10 @@ export class AuthInterceptorService implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const usuario = 'EDWIN';
     const token = this._cookieService.get('token');
     const request = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
-        usuario,
       },
     });
 
