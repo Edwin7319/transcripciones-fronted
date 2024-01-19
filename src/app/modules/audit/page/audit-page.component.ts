@@ -32,7 +32,6 @@ export class AuditPageComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.data = response.data;
         },
       });

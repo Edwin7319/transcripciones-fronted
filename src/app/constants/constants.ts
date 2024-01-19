@@ -19,6 +19,30 @@ export const EMPTY_TEXT = '';
 
 export const DELAY_SEARCH = 1000;
 
+const BASE_AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
+  {
+    field: 'size',
+    header: 'Información',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: 'processStatus',
+    header: 'Estado',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: 'id',
+    header: 'Acciones',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+];
+
 export const AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
   {
     field: 'code',
@@ -41,20 +65,25 @@ export const AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
     width: '100px',
     maxWidth: '140px',
   },
+  ...BASE_AUDIO_RECORDING_TABLE_COLUMNS,
+];
+
+export const HANDLING_AUDIO_TABLE_COLUMNS: Array<ITableColumn> = [
   {
-    field: 'size',
-    header: 'Información',
+    field: 'user',
+    header: 'Usuario',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',
   },
   {
-    field: 'id',
-    header: 'Acciones',
+    field: 'name',
+    header: 'Información audio',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',
   },
+  ...BASE_AUDIO_RECORDING_TABLE_COLUMNS,
 ];
 export const REPORT_TABLE_COLUMNS: Array<ITableColumn> = [
   {
@@ -95,7 +124,7 @@ export enum EFileType {
 export const AUDIT_TABLE_COLUMNS: Array<ITableColumn> = [
   {
     field: 'schema',
-    header: 'Esquema',
+    header: 'Módulo',
     minWidth: '40px',
     width: '60px',
     maxWidth: '100px',

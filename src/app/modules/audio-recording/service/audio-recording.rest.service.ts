@@ -10,6 +10,13 @@ import {
   IAudioRecordingPagination,
 } from '../interface/audio-recording.interface';
 
+export enum EAudioRecordingStatus {
+  CREATED = 'CREADO',
+  PENDING = 'PENDIENTE DE PROCESAMIENTO',
+  PROCESSED = 'PROCESADO',
+  ERROR = 'ERROR',
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,8 +27,12 @@ export class AudioRecordingRestService {
     this.url = `${environment.api}/registro-de-audio`;
   }
 
-  getAll(): Observable<IAudioRecordingPagination> {
-    return this._httpClient.get<IAudioRecordingPagination>(this.url);
+  getAllByUser(): Observable<IAudioRecordingPagination> {
+    return this._httpClient.get<IAudioRecordingPagination>(`${this.url}/por-usuario`);
+  }
+
+  getAllByAdmin(): Observable<IAudioRecordingPagination> {
+    return this._httpClient.get<IAudioRecordingPagination>(`${this.url}/todos`);
   }
 
   create(data: IAudioRecordingForm): Observable<IAudioRecording> {
@@ -30,7 +41,7 @@ export class AudioRecordingRestService {
     formData.append('name', data.name);
     formData.append('duration', `${data.duration}`);
 
-    return this._httpClient.post<IAudioRecording>(this.url, formData);
+    return this._httpClient.post<IAudioRecording>(`${this.url}/cargar-audio`, formData);
   }
 
   update(id: string, data: Partial<IAudioRecordingForm>): Observable<IAudioRecording> {
@@ -41,7 +52,7 @@ export class AudioRecordingRestService {
     return this._httpClient.delete<boolean>(`${this.url}/${id}`);
   }
 
-  getAudio(id: string): Observable<any> {
-    return this._httpClient.get(`${this.url}/obtener-audio/${id}`, { responseType: 'blob' });
+  saveFileTranscription(data: { audioId: string; fileName: string }): Observable<IAudioRecording> {
+    return this._httpClient.patch<IAudioRecording>(`${this.url}/guardar-transcripcion`, { ...data });
   }
 }

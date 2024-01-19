@@ -49,7 +49,7 @@ export class HeaderComponent implements OnDestroy {
       action: (): void => {
         this._router.navigate([]).then(() => {
           this.showUserOptions = false;
-          this._cookieService.deleteAll();
+          this._cookieService.deleteAll('/');
           this._router.navigate([APP_ROUTES.login]);
         });
       },
