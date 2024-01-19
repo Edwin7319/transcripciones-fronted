@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
-import { ICONS } from '../../../constants/constants';
+import { ECookie, ICONS } from '../../../constants/constants';
 import { APP_ROUTES } from '../../../constants/routes';
 
 interface INavbarItem {
@@ -18,6 +18,7 @@ interface INavbarItem {
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  providers: [CookieService],
   styleUrls: [],
 })
 export class HeaderComponent implements OnDestroy {
@@ -36,6 +37,8 @@ export class HeaderComponent implements OnDestroy {
 
   subscriptions: Array<Subscription> = [];
 
+  private _cookieService = inject(CookieService);
+
   icons = ICONS;
   existUser = false;
   showUserOptions = false;
@@ -47,19 +50,15 @@ export class HeaderComponent implements OnDestroy {
       description: '',
       roles: [],
       action: (): void => {
-        this._router.navigate([]).then(() => {
-          this.showUserOptions = false;
-          this._cookieService.deleteAll(APP_ROUTES.privatePrefix);
-          this._router.navigate([APP_ROUTES.login]);
-        });
+        this.showUserOptions = false;
+        this._cookieService.delete(ECookie.token);
+        this._cookieService.delete(ECookie.passStatus);
+        this._router.navigate([APP_ROUTES.login]);
       },
     },
   ];
 
-  constructor(
-    private readonly _router: Router,
-    private readonly _cookieService: CookieService,
-  ) {
+  constructor(private readonly _router: Router) {
     this.existUser = true;
   }
 

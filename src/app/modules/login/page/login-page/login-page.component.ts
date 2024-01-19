@@ -45,10 +45,8 @@ export class LoginPageComponent {
 
     login$.subscribe({
       next: (val) => {
-        this._cookieService.set(ECookie.token, val.token, { path: APP_ROUTES.privatePrefix });
-        this._cookieService.set(ECookie.passStatus, val.passwordStatus, {
-          path: APP_ROUTES.privatePrefix,
-        });
+        this._cookieService.set(ECookie.token, val.token);
+        this._cookieService.set(ECookie.passStatus, val.passwordStatus);
 
         if (val.passwordStatus === EPasswordStatus.GENERATED) {
           this.openModalToUpdatePassword();
@@ -103,9 +101,7 @@ export class LoginPageComponent {
     updatePass$.subscribe({
       next: () => {
         this._toaster.success('Se ha actualizado de manera correcta', 'Contraseña');
-        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED, {
-          path: APP_ROUTES.privatePrefix,
-        });
+        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED);
         void this._router.navigate([APP_ROUTES.audioRecording]);
       },
     });

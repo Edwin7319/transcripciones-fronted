@@ -168,17 +168,6 @@ export const AUDIT_TABLE_COLUMNS: Array<ITableColumn> = [
   // },
 ];
 
-export enum EPasswordStatus {
-  GENERATED = 'Generada',
-  RECOVERY = 'Recuperada',
-  VALIDATED = 'Validada',
-}
-
-export enum ECookie {
-  token = 'token',
-  passStatus = 'status',
-}
-
 export const USERS_TABLE_COLUMN: Array<ITableColumn> = [
   {
     field: 'name',
@@ -224,3 +213,19 @@ export const USERS_TABLE_COLUMN: Array<ITableColumn> = [
     maxWidth: '140px',
   },
 ];
+
+export enum EPasswordStatus {
+  GENERATED = 'Generada',
+  RECOVERY = 'Recuperada',
+  VALIDATED = 'Validada',
+}
+
+export enum ECookie {
+  token = 'token',
+  passStatus = 'status',
+}
+
+export enum ERole {
+  ADMIN = 'Administrador',
+  USER = 'Usuario',
+}
