@@ -52,7 +52,11 @@ export class AudioRecordingRestService {
     return this._httpClient.delete<boolean>(`${this.url}/${id}`);
   }
 
-  saveFileTranscription(data: { audioId: string; fileName: string }): Observable<IAudioRecording> {
-    return this._httpClient.patch<IAudioRecording>(`${this.url}/guardar-transcripcion`, { ...data });
+  saveFileTranscription(data: { audioId: string; txtFile: File; srtFile: File }): Observable<IAudioRecording> {
+    const formData = new FormData();
+    formData.append('audioId', data.audioId);
+    formData.append('transcription', data.srtFile);
+    formData.append('transcription', data.txtFile);
+    return this._httpClient.patch<IAudioRecording>(`${this.url}/guardar-transcripcion`, formData);
   }
 }

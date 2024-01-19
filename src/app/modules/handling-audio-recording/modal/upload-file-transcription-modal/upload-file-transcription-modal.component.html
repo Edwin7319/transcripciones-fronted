@@ -1,0 +1,60 @@
+<div class="md:px-6 px-1 md:py-2">
+  <div mat-dialog-title class="text-center border-b border-b-gray-200">
+    <span class="text-transcription-500 font-bold text-2xl">Cargar archivos de transcripción</span>
+  </div>
+
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form" (keyup.enter)="eventSubmit()" [noValidate]="true">
+      <div class="grid grid-cols-1 gap-4 pt-6">
+        <div>
+          <label for="txtFile" class="block text-xs font-medium text-gray-900">Archivo txt*</label>
+          <input
+            id="txtFile"
+            formControlName="txtFile"
+            type="file"
+            name="file-input"
+            accept=".txt"
+            class="form-control block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:bg-gray-100 file:me-4 file:py-3 file:px-4"
+            (change)="onUploadFile($event, 'txtFile')"
+          />
+          <span class="text-xs text-gray-400 font-normal"> Seleccione el archivo txt de la transcripción </span>
+        </div>
+        <div class="pt-5">
+          <label for="srtFile" class="block text-xs font-medium text-gray-900">Archivo SRT*</label>
+          <input
+            id="srtFile"
+            type="file"
+            formControlName="srtFile"
+            name="file-input"
+            accept=".srt"
+            class="form-control block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:bg-gray-100 file:me-4 file:py-3 file:px-4"
+            (change)="onUploadFile($event, 'srtFile')"
+          />
+          <span class="text-xs text-gray-400 font-normal"> Seleccione el archivo srt de la transcripción </span>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex flex-row">
+      <div>
+        <app-button
+          [isDisabled]="false"
+          [isFormButton]="true"
+          text="CANCELAR"
+          buttonType="SECONDARY"
+          (clickAction)="closeModal()"
+        />
+      </div>
+      <div class="ml-3">
+        <app-button
+          [isDisabled]="!isFormValid"
+          [isFormButton]="true"
+          text="ACEPTAR"
+          buttonType="PRIMARY"
+          (clickAction)="acceptModal()"
+        />
+      </div>
+    </div>
+  </mat-dialog-actions>
+</div>

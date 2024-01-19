@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { HANDLING_AUDIO_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../constants/constants';
 import { ITableColumn } from '../../../interfaces/interfaces';
@@ -9,6 +9,8 @@ import {
   AudioRecordingRestService,
   EAudioRecordingStatus,
 } from '../../audio-recording/service/audio-recording.rest.service';
+// eslint-disable-next-line max-len
+import { UploadFileTranscriptionModalComponent } from '../modal/upload-file-transcription-modal/upload-file-transcription-modal.component';
 
 @Component({
   selector: 'app-handling-audio-page',
@@ -23,6 +25,7 @@ export class HandlingAudioPageComponent implements OnInit {
   columns: Array<ITableColumn> = [...HANDLING_AUDIO_TABLE_COLUMNS];
 
   constructor(
+    private readonly _dialog: MatDialog,
     private readonly _audioRecordingRestService: AudioRecordingRestService,
     private readonly _toaster: ToastrService,
   ) {}
@@ -45,54 +48,22 @@ export class HandlingAudioPageComponent implements OnInit {
 
   async saveAudioTranscription(rowData: IAudioRecording): Promise<void> {
     if (rowData.processStatus === EAudioRecordingStatus.PROCESSED) {
+      this._toaster.success('La transcripción ya se encuentra cargada', 'Atención');
       return;
     }
 
-    const modalResponse = await this.showConfirmModal(rowData);
-
-    if (modalResponse.isDismissed) return;
-
-    const delete$ = this._audioRecordingRestService.saveFileTranscription({
-      audioId: rowData._id,
-      fileName: rowData.originalName.split('.')[0],
+    const dialogRef = this._dialog.open(UploadFileTranscriptionModalComponent, {
+      data: rowData,
+      width: '30em',
     });
 
-    delete$.subscribe({
-      next: (response) => {
+    dialogRef.afterClosed().subscribe({
+      next: (result: IAudioRecording) => {
+        if (!result) return;
         this._toaster.success('Registro eliminado de manera correcta', 'Éxito');
         const index = this.data.findIndex((d) => d._id === rowData._id);
-        this.data[index] = response;
+        this.data[index] = result;
       },
-    });
-  }
-
-  private async showConfirmModal(param: IAudioRecording): Promise<SweetAlertResult> {
-    return Swal.fire({
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown',
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp',
-      },
-      title: 'Guardar transcripciones',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      confirmButtonText: 'Guardar',
-      width: 600,
-      padding: '0.5em',
-      html: `
-      <div style="text-align: left; font-size: 15px;">
-        <span>¿Está seguro en guardar las transcripciones para el audio <strong>${param.originalName}</strong>?.</span>
-        <br>
-        <span>Ten en cuenta que los archivos de texto deben encontrarse en la ruta determinada</span>
-     </div>
-    `,
-      confirmButtonColor: '#012e54',
-      cancelButtonColor: '#890000',
-      showCancelButton: true,
-      showCloseButton: true,
-      cancelButtonText: 'Cancelar',
-      iconColor: '#000000',
     });
   }
 }
