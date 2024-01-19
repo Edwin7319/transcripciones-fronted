@@ -37,7 +37,7 @@ export class FileListPageComponent implements OnInit {
   ) {}
 
   private getData(): void {
-    this._audioRecordingRestService.getAll().subscribe({
+    this._audioRecordingRestService.getAllByUser().subscribe({
       next: (response) => {
         this.data = response.data;
         const [pagination] = response.metadata;
@@ -111,6 +111,7 @@ export class FileListPageComponent implements OnInit {
 
   getAudio(event: MouseEvent, rowData: IAudioRecording) {
     event.stopPropagation();
+
     const download$ = this._transcriptionFileService.downloadTxtFile(rowData);
 
     download$.subscribe({

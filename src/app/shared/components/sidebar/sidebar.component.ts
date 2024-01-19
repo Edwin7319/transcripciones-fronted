@@ -19,6 +19,10 @@ export class SidebarComponent {
           label: 'Registro de usuarios',
           routerLink: APP_ROUTES.user,
         },
+        {
+          label: 'Manejo de estados de audio',
+          routerLink: APP_ROUTES.handlingAudioRecording,
+        },
       ],
     },
     {

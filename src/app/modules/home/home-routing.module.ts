@@ -30,6 +30,16 @@ const routes: Routes = [
     },
   },
   {
+    path: 'private',
+    loadChildren: () =>
+      import('../handling-audio-recording/handling-audio-recording.module').then((m) => m.HandlingAudioRecordingModule),
+    data: {
+      breadcrumb: {
+        label: 'Registros de audio',
+      },
+    },
+  },
+  {
     path: 'public',
     loadChildren: () => import('../login/login.module').then((m) => m.LoginModule),
   },

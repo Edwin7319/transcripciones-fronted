@@ -1,12 +1,25 @@
 <div class="flex w-full flex-col bg-gray-100 p-6 border border-gray-200 rounded-lg">
   <div class="flex flex-col gap-6">
     <div>
-      <div><span class="text-transcription-600 font-bold">Ubicación</span></div>
+      <div class="flex flex-row">
+        <div>
+          <span class="text-transcription-600 font-bold">Ubicación</span>
+        </div>
+        <div
+          class="ml-5 -mt-2 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+          pTooltip="Copiar"
+          tooltipPosition="left"
+        >
+          <i
+            class="text-xl pi pi-copy text-transcription-600"
+            (click)="copyLocationTextToClipboard(positionCopy.innerText)"
+          ></i>
+        </div>
+      </div>
       <div class="bg-white p-6 border border-white h-80 overflow-auto mt-2" #scrollContainer>
-        <div class="flex flex-col">
+        <div class="flex flex-col" #positionCopy>
           <ng-container *ngFor="let section of location">
             <div
-              #highlightedSection
               class="mb-8"
               [ngClass]="{
                 'text-teal-500 font-bold text-xl': section.range.start < currentTime && section.range.end > currentTime
@@ -22,9 +35,23 @@
       </div>
     </div>
     <div>
-      <div><span class="text-transcription-600 font-bold">Transcripción</span></div>
+      <div class="flex flex-row">
+        <div>
+          <span class="text-transcription-600 font-bold">Transcripción</span>
+        </div>
+        <div
+          class="ml-5 -mt-2 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+          pTooltip="Copiar"
+          tooltipPosition="left"
+        >
+          <i
+            class="text-xl pi pi-copy text-transcription-600"
+            (click)="copyTranscriptionTextToClipboard(transcriptionCopy.innerText)"
+          ></i>
+        </div>
+      </div>
       <div class="bg-white p-6 border border-white h-80 overflow-auto mt-2">
-        <pre>{{ transcription }}</pre>
+        <pre #transcriptionCopy>{{ transcription }}</pre>
       </div>
     </div>
   </div>

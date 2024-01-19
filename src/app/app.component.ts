@@ -36,6 +36,19 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.updateTextPrimeComponents();
+    this.listenRouteChanges();
+  }
+
+  ngAfterViewChecked(): void {
+    this.listenChangesOnLoader();
+  }
+
+  closeResponsiveSidebar(): void {
+    this.showResponsiveSideBar = !this.showResponsiveSideBar;
+    this._appStore.updateStore('showSidebar', this.showResponsiveSideBar);
+  }
+
+  private listenRouteChanges(): void {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.route = event.urlAfterRedirects;
@@ -43,8 +56,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
         this.showHeader = !ROUTES_WITHOUT_HEADER.some((route) => {
           return routeWithoutQueryParams === `/${route}`;
         });
+
         if (this.showHeader) {
           this.setUserInfo();
+        } else {
+          this.showResponsiveSideBar = false;
         }
       }
     });
@@ -55,6 +71,13 @@ export class AppComponent implements OnInit, AfterViewChecked {
       ...this.user,
       ...jwtDecode(this._cookieService.get(ECookie.token)),
     };
+  }
+
+  private listenChangesOnLoader(): void {
+    this._loaderService.change.subscribe((state: boolean) => {
+      this.showLoader = state;
+      this._cdRef.detectChanges();
+    });
   }
 
   private updateTextPrimeComponents(): void {
@@ -73,21 +96,5 @@ export class AppComponent implements OnInit, AfterViewChecked {
       removeRule: 'Eliminar regla',
       dateIs: 'Fecha es',
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.listenChangesOnLoader();
-  }
-
-  listenChangesOnLoader(): void {
-    this._loaderService.change.subscribe((state: boolean) => {
-      this.showLoader = state;
-      this._cdRef.detectChanges();
-    });
-  }
-
-  closeResponsiveSidebar(): void {
-    this.showResponsiveSideBar = !this.showResponsiveSideBar;
-    this._appStore.updateStore('showSidebar', this.showResponsiveSideBar);
   }
 }

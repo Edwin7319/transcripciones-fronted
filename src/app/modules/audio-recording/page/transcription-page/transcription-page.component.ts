@@ -1,3 +1,4 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -22,6 +23,7 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _transcriptionFileRestService: TranscriptionFileRestService,
     private readonly _appStore: AppStoreService,
+    private clipboard: Clipboard,
   ) {}
 
   ngOnInit(): void {
@@ -54,5 +56,13 @@ export class TranscriptionPageComponent implements OnInit, OnDestroy {
         this._appStore.updateStore('transcriptionFileId', response._id);
       },
     });
+  }
+
+  copyTranscriptionTextToClipboard(innerText: string) {
+    this.clipboard.copy(innerText);
+  }
+
+  copyLocationTextToClipboard(innerText: string) {
+    this.clipboard.copy(innerText);
   }
 }

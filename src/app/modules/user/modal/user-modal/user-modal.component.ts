@@ -40,6 +40,10 @@ export class UserModalComponent implements OnInit, OnDestroy {
         this._formUtils.requiredValidator('apellido'),
         this._formUtils.minLengthValidator('apellido', 2),
       ]),
+      institution: new FormControl(null, [
+        this._formUtils.requiredValidator('institución'),
+        this._formUtils.minLengthValidator('institución', 2),
+      ]),
       email: new FormControl('', [
         this._formUtils.requiredValidator('correo'),
         this._formUtils.minLengthValidator('correo', 5),

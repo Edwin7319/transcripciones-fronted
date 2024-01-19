@@ -16,7 +16,6 @@
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
     (onRowSelect)="rowSelected($event)"
     (onRowUnselect)="rowUnselected($event)"
-    [globalFilterFields]="['_id', 'name', 'duration', 'size']"
   >
     <ng-template pTemplate="caption">
       <div class="flex flex-row">
@@ -60,6 +59,18 @@
               {{ rowData['_id'] }}
             </div>
             <div class="flex justify-center" *ngIf="col.field === 'name'">
+              {{ rowData[col.field] }}
+            </div>
+            <div
+              class="flex justify-center font-bold"
+              *ngIf="col.field === 'processStatus'"
+              [ngClass]="{
+                'text-sky-700': rowData[col.field] === 'CREADO',
+                'text-orange-400': rowData[col.field] === 'PENDIENTE DE PROCESAMIENTO',
+                'text-green-700': rowData[col.field] === 'PROCESADO',
+                'text-red-700': rowData[col.field] === 'ERROR'
+              }"
+            >
               {{ rowData[col.field] }}
             </div>
             <div class="flex justify-center" *ngIf="col.field === 'creationTime'">

@@ -19,12 +19,10 @@ export class AuthInterceptorService implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const usuario = 'EDWIN';
     const token = this._cookieService.get('token');
     const request = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
-        usuario,
       },
     });
 
@@ -35,7 +33,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (error.error instanceof ErrorEvent) {
           message = error.error.message;
         } else {
-          message = `Error: ${error.error.message}`;
+          message = `${error.error.message}`;
         }
         if (error.error?.code === 201) {
           this._toaster.warning(message, 'Advertencia');

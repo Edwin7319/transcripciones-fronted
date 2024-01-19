@@ -1,4 +1,5 @@
 import { IBaseSchema, IPagination } from '../../../interfaces/interfaces';
+import { EAudioRecordingStatus } from '../service/audio-recording.rest.service';
 
 export interface IAudioRecording extends IBaseSchema {
   name: string;
@@ -9,6 +10,7 @@ export interface IAudioRecording extends IBaseSchema {
   creationTime: number;
   duration: number;
   copyName: string;
+  processStatus: EAudioRecordingStatus;
 }
 
 export interface IAudioRecordingPagination {

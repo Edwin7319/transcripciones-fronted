@@ -44,7 +44,6 @@ export class LoginPageComponent {
 
     login$.subscribe({
       next: (val) => {
-        this._cookieService.deleteAll();
         this._cookieService.set(ECookie.token, val.token, { sameSite: 'Lax' });
         this._cookieService.set(ECookie.passStatus, val.passwordStatus, { sameSite: 'Lax' });
 
@@ -101,7 +100,7 @@ export class LoginPageComponent {
     updatePass$.subscribe({
       next: () => {
         this._toaster.success('Se ha actualizado de manera correcta', 'Contraseña');
-        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED, { sameSite: 'Lax' });
+        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED);
         void this._router.navigate([APP_ROUTES.audioRecording]);
       },
     });

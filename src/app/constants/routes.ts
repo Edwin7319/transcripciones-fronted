@@ -11,4 +11,5 @@ export const APP_ROUTES = {
   login: `transcripcion/public/login`,
   recoveryPassword: `transcripcion/public/recovery-password`,
   user: `transcripcion/private/gestion-usuarios`,
+  handlingAudioRecording: `transcripcion/private/manejo-estados-audio`,
 };

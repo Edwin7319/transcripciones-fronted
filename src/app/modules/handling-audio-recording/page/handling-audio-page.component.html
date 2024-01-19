@@ -1,0 +1,96 @@
+<div class="flex flex-col h-full w-full">
+  <app-page-title title="REGISTRO DE AUDIOS" />
+
+  <div class="flex w-full flex-col bg-white p-6 border border-gray-200 rounded-lg">
+    <p-table
+      dataKey="_id"
+      [value]="data"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [columns]="columns"
+      [rowsPerPageOptions]="rowsPerPage"
+      [paginator]="true"
+      [showCurrentPageReport]="true"
+      [scrollable]="true"
+      scrollHeight="400px"
+      styleClass="p-datatable-md p-datatable-striped"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex flex-row">
+          <span class="text-white font-bold text-lg">Registro de audios</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th
+            style="text-align: center"
+            *ngFor="let col of columns"
+            [ngStyle]="{ width: col.width, 'min-width': col.minWidth, 'max-width': col.maxWidth }"
+          >
+            {{ col.header }}
+            <ng-container *ngIf="col.field === 'user'">
+              <p-columnFilter type="text" field="user.name" display="menu"
+            /></ng-container>
+            <ng-container *ngIf="col.field === 'name'">
+              <p-columnFilter type="text" field="name" display="menu"
+            /></ng-container>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <ng-container *ngFor="let col of columns">
+            <td
+              [ngStyle]="{ width: col.width, 'min-width': col.minWidth, 'max-width': col.maxWidth }"
+              style="text-align: center !important"
+            >
+              <div class="flex flex-col pl-6" *ngIf="col.field === 'user'" style="text-align: left !important">
+                <div><strong>Nombre: </strong>{{ rowData['user']['name'] }} {{ rowData['user']['lastName'] }}</div>
+                <div><strong>Correo: </strong>{{ rowData['user']['email'] }}</div>
+              </div>
+              <div class="flex flex-col pl-6" *ngIf="col.field === 'name'" style="text-align: left !important">
+                <div><strong>Nombre: </strong>{{ rowData['name'] }}</div>
+                <div><strong>ID: </strong>{{ rowData['_id'] }}</div>
+              </div>
+              <div
+                class="flex justify-center font-bold"
+                *ngIf="col.field === 'processStatus'"
+                [ngClass]="{
+                  'text-sky-700': rowData[col.field] === 'CREADO',
+                  'text-orange-400': rowData[col.field] === 'PENDIENTE DE PROCESAMIENTO',
+                  'text-green-700': rowData[col.field] === 'PROCESADO',
+                  'text-red-700': rowData[col.field] === 'ERROR'
+                }"
+              >
+                {{ rowData[col.field] }}
+              </div>
+              <div class="flex justify-center" *ngIf="col.field === 'creationTime'">
+                {{ (rowData[col.field] | date: 'YYYY-MM-dd HH:mm') || '-' }}
+              </div>
+              <div class="flex flex-col" *ngIf="col.field === 'size'" style="text-align: left !important">
+                <div><span class="font-bold">Tamaño: </span>{{ rowData[col.field] | byteToMByte }} MB</div>
+                <div><span class="font-bold">Duración: </span>{{ rowData['duration'] | secondToMinute }}</div>
+              </div>
+
+              <div class="flex flex-row justify-center gap-5 items-center" *ngIf="col.field === 'id'">
+                <div
+                  class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+                  pTooltip="Guardar transcripción"
+                  tooltipPosition="left"
+                >
+                  <i class="text-xl pi pi-sync text-transcription-600" (click)="saveAudioTranscription(rowData)"></i>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="3">No se ha encontrado registro</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
