@@ -63,6 +63,9 @@
               <div class="flex justify-center" *ngIf="col.field === 'email'">
                 {{ rowData[col.field] }}
               </div>
+              <div class="flex justify-center" *ngIf="col.field === 'institution'">
+                {{ rowData[col.field] }}
+              </div>
               <div class="flex justify-center" *ngIf="col.field === 'status'">
                 <button
                   class="text-white font-bold p-1 rounded focus:outline-none shadow-md transition-all duration-300 ease-in-out w-full"

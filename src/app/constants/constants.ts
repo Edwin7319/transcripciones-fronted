@@ -201,6 +201,13 @@ export const USERS_TABLE_COLUMN: Array<ITableColumn> = [
     maxWidth: '140px',
   },
   {
+    field: 'institution',
+    header: 'Institución',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
     field: 'roles',
     header: 'Rol',
     minWidth: '60px',
