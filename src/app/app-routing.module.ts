@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'transcripcion',
+    redirectTo: 'public',
     pathMatch: 'full',
   },
 ];

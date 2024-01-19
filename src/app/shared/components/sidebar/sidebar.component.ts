@@ -1,19 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
 
+import { ECookie, ERole } from '../../../constants/constants';
 import { APP_ROUTES } from '../../../constants/routes';
+import { IUserPopulated } from '../../../modules/user/interface/user.interface';
+
+interface IMenuItem extends MenuItem {
+  items?: Array<IMenuItem>;
+  role?: Array<string>;
+}
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styles: [``],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @Input()
-  list: MenuItem[] = [
+  list: Array<IMenuItem> = [];
+
+  private MENU_OPTIONS: Array<IMenuItem> = [
     {
       label: 'Administración',
+      role: [ERole.ADMIN],
       items: [
         {
           label: 'Registro de usuarios',
@@ -28,9 +40,11 @@ export class SidebarComponent {
     {
       label: 'Registro de audio',
       routerLink: APP_ROUTES.audioRecording,
+      role: [ERole.ADMIN, ERole.USER],
     },
     {
       label: 'Histórico',
+      role: [ERole.ADMIN],
       items: [
         {
           label: 'Registro de audio',
@@ -45,7 +59,27 @@ export class SidebarComponent {
     },
   ];
 
-  constructor(private readonly _router: Router) {}
+  constructor(
+    private readonly _router: Router,
+    private readonly _cookieService: CookieService,
+  ) {}
+
+  ngOnInit(): void {
+    this.list = this.filterOptionsByRole();
+  }
+
+  private filterOptionsByRole(): Array<IMenuItem> {
+    const token = this._cookieService.get(ECookie.token);
+    const { roles } = jwtDecode<IUserPopulated>(token);
+
+    const userRoles = roles.map((rol) => rol.name.toLowerCase());
+
+    return this.MENU_OPTIONS.filter((option) => {
+      return (option.role || []).some((role) => {
+        return userRoles.includes(role.toLowerCase());
+      });
+    });
+  }
 
   executeAction(opcionHija: MenuItem) {
     void this._router.navigate([opcionHija.routerLink]);
