@@ -15,7 +15,6 @@
       scrollHeight="400px"
       styleClass="p-datatable-md p-datatable-striped"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-      [globalFilterFields]="['_id', 'name', 'duration', 'size']"
     >
       <ng-template pTemplate="caption">
         <div class="flex flex-row">
@@ -65,11 +64,16 @@
                 {{ rowData[col.field] }}
               </div>
               <div class="flex justify-center" *ngIf="col.field === 'status'">
-                <span
-                  class="text-red-800 font-bold"
-                  [ngClass]="{ 'text-green-800': rowData[col.field] === 'Activo' }"
-                  >{{ rowData[col.field] }}</span
+                <button
+                  class="text-white font-bold p-1 rounded focus:outline-none shadow-md transition-all duration-300 ease-in-out w-full"
+                  [ngClass]="{
+                    'bg-green-700 hover:bg-green-800': rowData[col.field] === 'Activo',
+                    'bg-red-600 hover:bg-red-800': rowData[col.field] !== 'Activo'
+                  }"
+                  (click)="updateStatus(rowData)"
                 >
+                  {{ rowData[col.field] }}
+                </button>
               </div>
               <div class="flex justify-center" *ngIf="col.field === 'creationTime'">
                 {{ (rowData[col.field] | date: 'YYYY-MM-dd HH:mm') || '-' }}

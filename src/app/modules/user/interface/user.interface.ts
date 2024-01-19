@@ -5,7 +5,9 @@ export interface IUser extends IBaseSchema, IUserForm {
   password: string;
   passwordStatus: string;
 }
-export interface IUserPopulated extends IBaseSchema {
+
+export type TUserStatus = 'Activo' | 'Inactivo';
+export interface IUserPopulated extends Omit<IBaseSchema, 'status'> {
   email: string;
   name: string;
   lastName: string;
@@ -13,6 +15,7 @@ export interface IUserPopulated extends IBaseSchema {
   password: string;
   passwordStatus: string;
   roles: Array<IRole>;
+  status: TUserStatus;
 }
 
 export interface IUserForm {
