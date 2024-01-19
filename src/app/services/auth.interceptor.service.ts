@@ -33,7 +33,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (error.error instanceof ErrorEvent) {
           message = error.error.message;
         } else {
-          message = `Error: ${error.error.message}`;
+          message = `${error.error.message}`;
         }
         if (error.error?.code === 201) {
           this._toaster.warning(message, 'Advertencia');
