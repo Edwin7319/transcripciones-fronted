@@ -3,7 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { IRole, IUser, IUserForm, IUserPaginationPopulated } from '../interface/user.interface';
+import {
+  IRole,
+  IUser,
+  IUserForm,
+  IUserPaginationPopulated,
+  IUserPopulated,
+  TUserStatus,
+} from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +31,9 @@ export class UserRestService {
 
   getRoles(): Observable<Array<IRole>> {
     return this._httpClient.get<Array<IRole>>(`${this.url}/roles`);
+  }
+
+  updateStatus(userId: string, status: TUserStatus): Observable<IUserPopulated> {
+    return this._httpClient.put<IUserPopulated>(`${this.url}/actualizar-estado/${userId}`, { status });
   }
 }
