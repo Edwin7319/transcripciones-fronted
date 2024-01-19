@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 
+import { ECookie } from '../constants/constants';
+
 import { LoaderService } from './loader.service';
 
 @Injectable({
@@ -19,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this._cookieService.get('token');
+    const token = this._cookieService.get(ECookie.token);
     const request = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

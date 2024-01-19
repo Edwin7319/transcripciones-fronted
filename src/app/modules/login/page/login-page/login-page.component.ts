@@ -14,6 +14,7 @@ import { AuthRestService } from '../../service/auth.rest.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
+  providers: [CookieService],
   styles: [],
 })
 export class LoginPageComponent {
@@ -23,10 +24,10 @@ export class LoginPageComponent {
 
   constructor(
     private readonly _router: Router,
-    private readonly _cookieService: CookieService,
     private readonly _authRestService: AuthRestService,
     private readonly _dialog: MatDialog,
     private readonly _toaster: ToastrService,
+    private _cookieService: CookieService,
   ) {}
   goToRecoverPassword(): void {
     this.showRecoveryPassForm = true;
@@ -44,8 +45,10 @@ export class LoginPageComponent {
 
     login$.subscribe({
       next: (val) => {
-        this._cookieService.set(ECookie.token, val.token, { sameSite: 'Lax' });
-        this._cookieService.set(ECookie.passStatus, val.passwordStatus, { sameSite: 'Lax' });
+        this._cookieService.set(ECookie.token, val.token, { path: APP_ROUTES.privatePrefix });
+        this._cookieService.set(ECookie.passStatus, val.passwordStatus, {
+          path: APP_ROUTES.privatePrefix,
+        });
 
         if (val.passwordStatus === EPasswordStatus.GENERATED) {
           this.openModalToUpdatePassword();
@@ -100,7 +103,9 @@ export class LoginPageComponent {
     updatePass$.subscribe({
       next: () => {
         this._toaster.success('Se ha actualizado de manera correcta', 'Contraseña');
-        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED);
+        this._cookieService.set(ECookie.passStatus, EPasswordStatus.VALIDATED, {
+          path: APP_ROUTES.privatePrefix,
+        });
         void this._router.navigate([APP_ROUTES.audioRecording]);
       },
     });

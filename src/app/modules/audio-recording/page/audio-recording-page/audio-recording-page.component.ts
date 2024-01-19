@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AudioPlayerComponent, Track } from '@khajegan/ngx-audio-player';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 
@@ -12,6 +13,7 @@ type TRowAction = 'select' | 'unselect';
 @Component({
   selector: 'app-audio-recording-page',
   templateUrl: './audio-recording-page.component.html',
+  providers: [CookieService],
   styles: [],
 })
 export class AudioRecordingPageComponent implements OnInit, OnDestroy {
