@@ -5,7 +5,7 @@ import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   {
-    path: 'transcripcion',
+    path: 'private',
     loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
     data: {
       breadcrumb: {
@@ -13,6 +13,10 @@ const routes: Routes = [
         info: 'home',
       },
     },
+  },
+  {
+    path: 'public',
+    loadChildren: () => import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
     path: '',

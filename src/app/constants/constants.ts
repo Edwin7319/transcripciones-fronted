@@ -1,6 +1,8 @@
 import { ITableColumn } from '../interfaces/interfaces';
 
-export const ROUTES_WITHOUT_HEADER = ['transcripcion/public/login'];
+import { APP_ROUTES } from './routes';
+
+export const ROUTES_WITHOUT_HEADER = [APP_ROUTES.login];
 
 export const ICONS = {
   PROFILE: 'assets/icons/profile.svg',
