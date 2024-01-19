@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'registro-de-audio',
+    path: 'transcripcion/registro-de-audio',
     loadChildren: () => import('../audio-recording/audio-recording.module').then((m) => m.AudioRecordingModule),
     data: {
       breadcrumb: {
@@ -12,7 +12,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'private',
+    path: 'transcripcion',
     loadChildren: () => import('../audit/audit.module').then((m) => m.AuditModule),
     data: {
       breadcrumb: {
@@ -21,7 +21,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'private',
+    path: 'transcripcion',
     loadChildren: () => import('../user/user.module').then((m) => m.UserModule),
     data: {
       breadcrumb: {
@@ -30,7 +30,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'private',
+    path: 'transcripcion',
     loadChildren: () =>
       import('../handling-audio-recording/handling-audio-recording.module').then((m) => m.HandlingAudioRecordingModule),
     data: {
@@ -40,12 +40,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'public',
-    loadChildren: () => import('../login/login.module').then((m) => m.LoginModule),
-  },
-  {
     path: '',
-    redirectTo: 'public',
+    redirectTo: 'transcripcion/registro-de-audio',
     pathMatch: 'full',
   },
 ];
