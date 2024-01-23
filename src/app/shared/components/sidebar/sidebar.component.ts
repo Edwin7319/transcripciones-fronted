@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
           routerLink: APP_ROUTES.user,
         },
         {
-          label: 'Manejo de estados de audio',
+          label: 'Carga de transcripciones',
           routerLink: APP_ROUTES.handlingAudioRecording,
         },
       ],
