@@ -42,9 +42,19 @@ export class UserPageComponent implements OnInit {
       },
     });
   }
-  openCreateModal(): void {
+  openCreateOrEditModal(rowData?: IUserPopulated): void {
+    let user = undefined;
+
+    if (rowData) {
+      user = {
+        ...rowData,
+        roles: rowData.roles.map((r) => r._id),
+      };
+    }
+
     const dialogRef = this._dialog.open(UserModalComponent, {
       width: '50em',
+      data: user,
     });
 
     dialogRef.afterClosed().subscribe({

@@ -28,7 +28,6 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
   fileId = '';
   recordingId = '';
   originalText = '';
-
   constructor(
     private readonly _loaderService: LoaderService,
     private readonly _appStore: AppStoreService,
@@ -42,6 +41,7 @@ export class RecordsPageComponent implements OnInit, OnDestroy {
         if (!store.transcriptionFileId) return;
         this.originalText = store.transcription;
         if (this.fileId !== store.transcriptionFileId) {
+          this.showCreateForm = false;
           this.loadInitData(store.transcriptionFileId);
         }
         this.fileId = store.transcriptionFileId;

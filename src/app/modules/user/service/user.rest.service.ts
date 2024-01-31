@@ -25,6 +25,10 @@ export class UserRestService {
     return this._httpClient.post<IUser>(`${this.url}/registrar`, { ...data });
   }
 
+  update(id: string, data: IUserForm): Observable<IUser> {
+    return this._httpClient.put<IUser>(`${this.url}/editar/${id}`, { ...data });
+  }
+
   getAll(): Observable<IUserPaginationPopulated> {
     return this._httpClient.get<IUserPaginationPopulated>(`${this.url}`);
   }

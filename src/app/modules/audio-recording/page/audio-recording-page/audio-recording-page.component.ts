@@ -73,7 +73,7 @@ export class AudioRecordingPageComponent implements OnInit, OnDestroy {
     if (action === 'unselect') return;
 
     if (data.processStatus !== EAudioRecordingStatus.PROCESSED) {
-      this.showModal(data);
+      void this.showModal(data);
       return;
     }
 

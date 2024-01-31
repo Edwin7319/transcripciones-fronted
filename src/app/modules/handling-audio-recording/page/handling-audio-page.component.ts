@@ -34,7 +34,7 @@ export class HandlingAudioPageComponent implements OnInit {
     this.getInitData();
   }
 
-  private getInitData(): void {
+  getInitData(): void {
     const getAll$ = this._audioRecordingRestService.getAllByAdmin();
 
     getAll$.subscribe({
@@ -60,7 +60,7 @@ export class HandlingAudioPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (result: IAudioRecording) => {
         if (!result) return;
-        this._toaster.success('Registro eliminado de manera correcta', 'Éxito');
+        this._toaster.success('Transcripción cargada de manera correcta', 'Éxito');
         const index = this.data.findIndex((d) => d._id === rowData._id);
         this.data[index] = result;
       },

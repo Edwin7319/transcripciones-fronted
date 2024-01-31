@@ -25,7 +25,7 @@
               [isFormButton]="false"
               buttonType="LIGHT"
               icon="pi-plus"
-              (clickAction)="openCreateModal()"
+              (clickAction)="openCreateOrEditModal()"
             />
           </div>
         </div>
@@ -85,6 +85,18 @@
                 <ol *ngFor="let role of rowData[col.field]" class="list-disc">
                   <li><span class="font-bold"></span>{{ role.name }}</li>
                 </ol>
+              </div>
+              <div class="flex justify-center" *ngIf="col.field === '_id'">
+                <div
+                  class="mr-5 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+                  pTooltip="Editar"
+                  tooltipPosition="left"
+                >
+                  <i
+                    class="text-xl pi pi-user-edit text-transcription-600"
+                    (click)="openCreateOrEditModal(rowData)"
+                  ></i>
+                </div>
               </div>
             </td>
           </ng-container>
