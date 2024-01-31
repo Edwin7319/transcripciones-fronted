@@ -18,16 +18,25 @@
     (onRowUnselect)="rowUnselected($event)"
   >
     <ng-template pTemplate="caption">
-      <div class="flex flex-row">
-        <div class="w-5/6 text-white font-bold text-lg">Registro de audios</div>
-        <div class="w-1/6 items-end">
-          <app-button
-            text="Nuevo"
-            [isFormButton]="false"
-            buttonType="LIGHT"
-            icon="pi-plus"
-            (clickAction)="openCreateOrEditModal($event)"
-          />
+      <div class="flex justify-between">
+        <div class="text-white font-bold text-lg">Registro de audios</div>
+        <div class="flex">
+          <div
+            class="mr-5 hover:cursor-pointer hover:bg-transcription-700 rounded-full w-1/3"
+            pTooltip="Refrescar"
+            tooltipPosition="left"
+          >
+            <i class="text-xl pi pi-sync text-white" (click)="getInitData()"></i>
+          </div>
+          <div class="w-2/3">
+            <app-button
+              text="Nuevo"
+              [isFormButton]="false"
+              buttonType="LIGHT"
+              icon="pi-plus"
+              (clickAction)="openCreateOrEditModal($event)"
+            />
+          </div>
         </div>
       </div>
     </ng-template>
@@ -98,7 +107,7 @@
                 pTooltip="Descargar"
                 tooltipPosition="left"
               >
-                <i class="text-xl pi pi-download text-transcription-600" (click)="getAudio($event, rowData)"></i>
+                <i class="text-xl pi pi-download text-transcription-600" (click)="downloadFile($event, rowData)"></i>
               </div>
 
               <div
