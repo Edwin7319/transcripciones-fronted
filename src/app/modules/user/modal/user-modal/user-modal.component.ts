@@ -6,7 +6,7 @@ import { debounceTime, Subscription } from 'rxjs';
 import { FORM_DEBOUNCE_TIME } from '../../../../constants/constants';
 import { IAutocomplete } from '../../../../shared/components/autocomplete/autocomplete.component';
 import { FormUtil } from '../../../../utils/form.util';
-import { IUserForm } from '../../interface/user.interface';
+import { IUserForm, IUserPopulated } from '../../interface/user.interface';
 import { UserRestService } from '../../service/user.rest.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class UserModalComponent implements OnInit, OnDestroy {
   roles: Array<IAutocomplete> = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: IUserPopulated,
     public dialogRef: MatDialogRef<UserModalComponent>,
     private readonly _formUtils: FormUtil,
     private readonly _userRestService: UserRestService,
@@ -62,6 +62,14 @@ export class UserModalComponent implements OnInit, OnDestroy {
     this.listenFormChanges();
   }
 
+  private initFormValues(): void {
+    if (this.data) {
+      this.form.patchValue({
+        ...this.data,
+      });
+    }
+  }
+
   private getRoles(): void {
     const roles$ = this._userRestService.getRoles();
 
@@ -72,6 +80,7 @@ export class UserModalComponent implements OnInit, OnDestroy {
           value: rol._id,
           label: rol.name,
         }));
+        this.initFormValues();
       },
     });
   }
@@ -104,7 +113,14 @@ export class UserModalComponent implements OnInit, OnDestroy {
   }
 
   private registerUser(data: IUserForm): void {
-    const register$ = this._userService.register(data);
+    let register$;
+
+    if (!this.data) {
+      register$ = this._userService.register(data);
+    } else {
+      register$ = this._userService.update(this.data._id, data);
+    }
+
     register$.subscribe({
       next: () => {
         this.dialogRef.close(true);

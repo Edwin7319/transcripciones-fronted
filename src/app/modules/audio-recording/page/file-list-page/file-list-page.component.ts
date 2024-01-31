@@ -9,7 +9,7 @@ import { ITableColumn } from '../../../../interfaces/interfaces';
 import { AppStoreService } from '../../../../services/app-store.service';
 import { IAudioRecording, IAudioRecordingForm } from '../../interface/audio-recording.interface';
 import { UploadAudioModalComponent } from '../../modal/upload-audio-modal/upload-audio-modal.component';
-import { AudioRecordingRestService } from '../../service/audio-recording.rest.service';
+import { AudioRecordingRestService, EAudioRecordingStatus } from '../../service/audio-recording.rest.service';
 import { TranscriptionFileRestService } from '../../service/transcription-file.rest.service';
 @Component({
   selector: 'app-file-list-page',
@@ -36,7 +36,11 @@ export class FileListPageComponent implements OnInit {
     private readonly _transcriptionFileService: TranscriptionFileRestService,
   ) {}
 
-  private getData(): void {
+  ngOnInit(): void {
+    this.getInitData();
+  }
+
+  getInitData(): void {
     this._audioRecordingRestService.getAllByUser().subscribe({
       next: (response) => {
         this.data = response.data;
@@ -44,10 +48,6 @@ export class FileListPageComponent implements OnInit {
         this.totalRecords = pagination.total;
       },
     });
-  }
-
-  ngOnInit(): void {
-    this.getData();
   }
 
   openCreateOrEditModal(event: MouseEvent, rowData?: IAudioRecording): void {
@@ -109,8 +109,13 @@ export class FileListPageComponent implements OnInit {
     });
   }
 
-  getAudio(event: MouseEvent, rowData: IAudioRecording) {
+  downloadFile(event: MouseEvent, rowData: IAudioRecording) {
     event.stopPropagation();
+
+    if (rowData.processStatus !== EAudioRecordingStatus.PROCESSED) {
+      void this.showWarningModal(rowData);
+      return;
+    }
 
     const download$ = this._transcriptionFileService.downloadTxtFile(rowData);
 
@@ -135,7 +140,7 @@ export class FileListPageComponent implements OnInit {
     }
   }
 
-  private async showConfirmModal(param: any): Promise<SweetAlertResult> {
+  private async showConfirmModal(param: IAudioRecording): Promise<SweetAlertResult> {
     return Swal.fire({
       showClass: {
         popup: 'animate__animated animate__fadeInDown',
@@ -155,6 +160,33 @@ export class FileListPageComponent implements OnInit {
       showCancelButton: true,
       showCloseButton: true,
       cancelButtonText: 'Cancelar',
+      iconColor: '#000000',
+    });
+  }
+
+  private async showWarningModal(param: IAudioRecording): Promise<SweetAlertResult> {
+    return Swal.fire({
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+      title: 'Descargar transcripción',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      confirmButtonText: 'Aceptar',
+      width: 600,
+      padding: '0.5em',
+      confirmButtonColor: '#012e54',
+      html: `
+      <div style="text-align: left; font-size: 15px;">
+        La transcripción del audio <strong>${param.name}</strong> no se encuentra disponible en este momento.
+        <br>
+        Por favor solicita al administrador el procesamiento del mismo y luego contiúa,
+      </div>
+      `,
+      showCloseButton: true,
       iconColor: '#000000',
     });
   }

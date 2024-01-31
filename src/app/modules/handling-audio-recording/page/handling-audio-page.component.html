@@ -17,8 +17,17 @@
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
     >
       <ng-template pTemplate="caption">
-        <div class="flex flex-row">
-          <span class="text-white font-bold text-lg">Registro de audios</span>
+        <div class="flex justify-between">
+          <div>
+            <span class="text-white font-bold text-lg">Registro de audios</span>
+          </div>
+          <div
+            class="mr-5 hover:cursor-pointer hover:bg-transcription-700 rounded-full"
+            pTooltip="Refrescar"
+            tooltipPosition="left"
+          >
+            <i class="text-xl pi pi-sync text-white" (click)="getInitData()"></i>
+          </div>
         </div>
       </ng-template>
       <ng-template pTemplate="header" let-columns>
@@ -50,8 +59,9 @@
                 <div><strong>Correo: </strong>{{ rowData['user']['email'] }}</div>
               </div>
               <div class="flex flex-col pl-6" *ngIf="col.field === 'name'" style="text-align: left !important">
-                <div><strong>Nombre: </strong>{{ rowData['name'] }}</div>
                 <div><strong>ID: </strong>{{ rowData['_id'] }}</div>
+                <div><strong>Nombre: </strong>{{ rowData['name'] }}</div>
+                <div><strong>Fecha: </strong>{{ rowData['creationTime'] | date: 'YYYY-MM-dd HH:mm' }}</div>
               </div>
               <div
                 class="flex justify-center font-bold"
@@ -79,7 +89,7 @@
                   pTooltip="Guardar transcripción"
                   tooltipPosition="left"
                 >
-                  <i class="text-xl pi pi-sync text-transcription-600" (click)="saveAudioTranscription(rowData)"></i>
+                  <i class="text-xl pi pi-upload text-transcription-600" (click)="saveAudioTranscription(rowData)"></i>
                 </div>
               </div>
             </td>

@@ -24,7 +24,7 @@ export const DELAY_SEARCH = 1000;
 const BASE_AUDIO_RECORDING_TABLE_COLUMNS: Array<ITableColumn> = [
   {
     field: 'size',
-    header: 'Información',
+    header: 'Detalle',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',
@@ -208,6 +208,13 @@ export const USERS_TABLE_COLUMN: Array<ITableColumn> = [
   {
     field: 'status',
     header: 'Estado',
+    minWidth: '60px',
+    width: '100px',
+    maxWidth: '140px',
+  },
+  {
+    field: '_id',
+    header: 'Acciones',
     minWidth: '60px',
     width: '100px',
     maxWidth: '140px',
