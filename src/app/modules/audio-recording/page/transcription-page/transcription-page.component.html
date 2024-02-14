@@ -3,6 +3,28 @@
     <div>
       <div class="flex flex-row">
         <div>
+          <span class="text-transcription-600 font-bold">Transcripción</span>
+        </div>
+        <div
+          class="ml-5 -mt-2 hover:cursor-pointer hover:bg-gray-300 rounded-full"
+          pTooltip="Copiar"
+          tooltipPosition="left"
+        >
+          <i
+            class="text-xl pi pi-copy text-transcription-600"
+            (click)="copyTranscriptionTextToClipboard(transcriptionCopy.innerText)"
+          ></i>
+        </div>
+      </div>
+      <div class="bg-white p-6 border border-white mt-2">
+        <pre #transcriptionCopy class="overflow-x-auto overflow-y-scroll whitespace-pre-wrap h-80">{{
+          transcription
+        }}</pre>
+      </div>
+    </div>
+    <div>
+      <div class="flex flex-row">
+        <div>
           <span class="text-transcription-600 font-bold">Ubicación</span>
         </div>
         <div
@@ -32,26 +54,6 @@
             </div>
           </ng-container>
         </div>
-      </div>
-    </div>
-    <div>
-      <div class="flex flex-row">
-        <div>
-          <span class="text-transcription-600 font-bold">Transcripción</span>
-        </div>
-        <div
-          class="ml-5 -mt-2 hover:cursor-pointer hover:bg-gray-300 rounded-full"
-          pTooltip="Copiar"
-          tooltipPosition="left"
-        >
-          <i
-            class="text-xl pi pi-copy text-transcription-600"
-            (click)="copyTranscriptionTextToClipboard(transcriptionCopy.innerText)"
-          ></i>
-        </div>
-      </div>
-      <div class="bg-white p-6 border border-white h-80 overflow-auto mt-2">
-        <pre #transcriptionCopy>{{ transcription }}</pre>
       </div>
     </div>
   </div>
