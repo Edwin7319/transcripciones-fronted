@@ -90,21 +90,22 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
     this.fileErrorMessage = '';
     const selectedFile = event.target?.files[0];
 
-    if (selectedFile) {
-      const fileName = selectedFile.name.split('.')[0];
-
-      if (!Utils.validateFileName(fileName)) {
-        this.fileErrorMessage = 'El nombre de archivo no tene un formato válido';
-        return;
-      }
-
-      const audioElement = document.createElement('audio');
-
-      audioElement.src = URL.createObjectURL(selectedFile);
-      audioElement.addEventListener('loadedmetadata', () => {
-        this.duration = audioElement.duration;
-        this.selectedFile = selectedFile;
-      });
+    if (!selectedFile) {
+      return;
     }
+
+    // const fileName = selectedFile.name.split('.')[0];
+    // if (!Utils.validateFileName(fileName)) {
+    //   this.fileErrorMessage = 'El nombre de archivo no tiene un formato válido';
+    //   return;
+    // }
+
+    const audioElement = document.createElement('audio');
+
+    audioElement.src = URL.createObjectURL(selectedFile);
+    audioElement.addEventListener('loadedmetadata', () => {
+      this.duration = audioElement.duration;
+      this.selectedFile = selectedFile;
+    });
   }
 }
