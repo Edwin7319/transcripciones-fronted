@@ -80,7 +80,7 @@
                 'text-red-700': rowData[col.field] === 'ERROR'
               }"
             >
-              {{ rowData[col.field] }}
+              {{ rowData[col.field] === 'PENDIENTE DE PROCESAMIENTO' ? 'PROCESANDO' : rowData[col.field] }}
             </div>
             <div class="flex justify-center" *ngIf="col.field === 'creationTime'">
               {{ (rowData[col.field] | date: 'YYYY-MM-dd HH:mm') || '-' }}

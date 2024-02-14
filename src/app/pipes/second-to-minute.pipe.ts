@@ -13,7 +13,7 @@ export class SecondToMinutePipe implements PipeTransform {
     const minutes = Math.floor((value % 3600) / 60);
     const seconds = Math.floor(value % 60);
 
-    return `${this.completeTimeValue(hours)}:${this.completeTimeValue(minutes)}:${seconds}`;
+    return `${this.completeTimeValue(hours)}:${this.completeTimeValue(minutes)}:${this.completeTimeValue(seconds)}`;
   }
 
   private completeTimeValue(value: number): string {
