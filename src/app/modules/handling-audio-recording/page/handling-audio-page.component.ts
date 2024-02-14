@@ -48,8 +48,7 @@ export class HandlingAudioPageComponent implements OnInit {
 
   async saveAudioTranscription(rowData: IAudioRecording): Promise<void> {
     if (rowData.processStatus === EAudioRecordingStatus.PROCESSED) {
-      this._toaster.success('La transcripción ya se encuentra cargada', 'Atención');
-      return;
+      this._toaster.warning('Se va a actualizar la transcripción', 'Atención');
     }
 
     const dialogRef = this._dialog.open(UploadFileTranscriptionModalComponent, {
