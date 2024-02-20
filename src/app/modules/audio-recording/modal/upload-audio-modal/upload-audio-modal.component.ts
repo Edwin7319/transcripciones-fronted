@@ -94,11 +94,10 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // const fileName = selectedFile.name.split('.')[0];
-    // if (!Utils.validateFileName(fileName)) {
-    //   this.fileErrorMessage = 'El nombre de archivo no tiene un formato válido';
-    //   return;
-    // }
+    if (!this.isAudioFile(selectedFile.type)) {
+      this.fileErrorMessage = 'Formato de archivo no válido, por favor cargue solo archivos de audio';
+      return;
+    }
 
     const audioElement = document.createElement('audio');
 
@@ -107,5 +106,18 @@ export class UploadAudioModalComponent implements OnInit, OnDestroy {
       this.duration = audioElement.duration;
       this.selectedFile = selectedFile;
     });
+  }
+
+  dropHandler(event: DragEvent): void {
+    event.preventDefault();
+    this.onFileSelected({ target: event.dataTransfer });
+  }
+
+  dragOverHandler(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  private isAudioFile(fileType: string): boolean {
+    return fileType.startsWith('audio/');
   }
 }
