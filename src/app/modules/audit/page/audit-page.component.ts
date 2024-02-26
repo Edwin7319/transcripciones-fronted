@@ -6,6 +6,10 @@ import { AUDIT_TABLE_COLUMNS, ROWS, ROWS_PAGINATION } from '../../../constants/c
 import { ITableColumn } from '../../../interfaces/interfaces';
 import { LogRestService } from '../../home/page/log.rest.service';
 
+const PAGE_TITLE: { [key: string]: string } = {
+  registro_de_audio: 'Histórico de usuarios',
+  actas: 'Histórico de actas',
+};
 @Component({
   selector: 'app-audit-page',
   templateUrl: './audit-page.component.html',
@@ -17,6 +21,7 @@ export class AuditPageComponent implements OnInit {
   rowsPerPage = ROWS_PAGINATION;
   totalRecords = 0;
   columns: Array<ITableColumn> = [...AUDIT_TABLE_COLUMNS];
+  pageTitle = '';
 
   constructor(
     private readonly _route: ActivatedRoute,
@@ -27,7 +32,9 @@ export class AuditPageComponent implements OnInit {
     this._route.params
       .pipe(
         mergeMap((param) => {
-          return this._logRestService.getAll(param['tipo']);
+          const tipo = param['tipo'];
+          this.pageTitle = PAGE_TITLE[tipo];
+          return this._logRestService.getAll(tipo);
         }),
       )
       .subscribe({
