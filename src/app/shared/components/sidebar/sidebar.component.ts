@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
   private MENU_OPTIONS: Array<IMenuItem> = [
     {
       label: 'Administración',
-      role: [ERole.ADMIN,  ERole.ADMIN_SISTEMA],
+      role: [ERole.ADMIN, ERole.ADMIN_SISTEMA],
       items: [
         {
           label: 'Registro de usuarios',
@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       label: 'Histórico',
-      role: [ERole.ADMIN,  ERole.ADMIN_SISTEMA],
+      role: [ERole.ADMIN, ERole.ADMIN_SISTEMA],
       items: [
         {
           label: 'Registro de audio',
@@ -73,17 +73,15 @@ export class SidebarComponent implements OnInit {
     const { roles } = jwtDecode<IUserPopulated>(token);
     const userRoles = roles.map((rol) => rol.name.toLowerCase());
 
-    const esAdminSistema = userRoles.some(role => {
+    const esAdminSistema = userRoles.some((role) => {
       return role.toLowerCase() === ERole.ADMIN_SISTEMA.toLowerCase();
     });
 
     if (esAdminSistema && this.MENU_OPTIONS[0]?.items) {
-      this.MENU_OPTIONS[0].items.push(
-        {
-          label: 'Carga de transcripciones',
-          routerLink: APP_ROUTES.handlingAudioRecording,
-        } as IMenuItem,
-      );
+      this.MENU_OPTIONS[0].items.push({
+        label: 'Carga de transcripciones',
+        routerLink: APP_ROUTES.handlingAudioRecording,
+      } as IMenuItem);
     }
 
     return this.MENU_OPTIONS.filter((option) => {

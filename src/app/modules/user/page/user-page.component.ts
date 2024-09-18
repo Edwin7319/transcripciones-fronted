@@ -5,11 +5,11 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 
 import { ROWS, ROWS_PAGINATION, USERS_TABLE_COLUMN } from '../../../constants/constants';
 import { ITableColumn } from '../../../interfaces/interfaces';
+import { ISettingPaginationPopulated, ISettingPopulated } from '../../../interfaces/setting.interface';
+import { SettingRestService } from '../../../services/rest/setting.rest.service';
 import { IUserForm, IUserPopulated } from '../interface/user.interface';
 import { UserModalComponent } from '../modal/user-modal/user-modal.component';
 import { UserRestService } from '../service/user.rest.service';
-import { SettingRestService } from '../../../services/rest/setting.rest.service';
-import { ISettingPaginationPopulated, ISettingPopulated } from '../../../interfaces/setting.interface';
 
 @Component({
   selector: 'app-user-page',

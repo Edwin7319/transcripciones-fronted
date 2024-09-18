@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HandlingAudioPageComponent } from './page/handling-audio-page.component';
 import { ERole } from '../../constants/constants';
 import { AuthGuard } from '../../guard/auth.guard';
+
+import { HandlingAudioPageComponent } from './page/handling-audio-page.component';
 
 const routes: Routes = [
   {
