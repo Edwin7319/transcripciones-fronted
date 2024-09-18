@@ -8,6 +8,8 @@ import { ITableColumn } from '../../../interfaces/interfaces';
 import { IUserForm, IUserPopulated } from '../interface/user.interface';
 import { UserModalComponent } from '../modal/user-modal/user-modal.component';
 import { UserRestService } from '../service/user.rest.service';
+import { SettingRestService } from '../../../services/rest/setting.rest.service';
+import { ISettingPaginationPopulated, ISettingPopulated } from '../../../interfaces/setting.interface';
 
 @Component({
   selector: 'app-user-page',
@@ -25,6 +27,7 @@ export class UserPageComponent implements OnInit {
     private readonly _toaster: ToastrService,
     private readonly _dialog: MatDialog,
     private readonly _userService: UserRestService,
+    private readonly _settingRestService: SettingRestService,
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +45,30 @@ export class UserPageComponent implements OnInit {
       },
     });
   }
+
+  validateMaxUsersToRegister(rowData?: IUserPopulated): void {
+    if (!rowData) {
+      const setting$ = this._settingRestService.getByCode('001');
+      setting$.subscribe({
+        next: (settings: ISettingPaginationPopulated) => {
+          const value = settings.data?.length ? +settings.data[0].value : 0;
+
+          if (value) {
+            if (this.totalRecords < value) {
+              this.openCreateOrEditModal(rowData);
+            } else {
+              this._toaster.warning('Ha excedido la cantidad máxima de usuarios a registrar', 'Advertencia');
+            }
+          } else {
+            this._toaster.warning('No se ha encontraado la cantidad máxima de usuarios a registrar', 'Advertencia');
+          }
+        },
+      });
+    } else {
+      this.openCreateOrEditModal(rowData);
+    }
+  }
+
   openCreateOrEditModal(rowData?: IUserPopulated): void {
     let user = undefined;
 

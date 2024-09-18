@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () => import('../audio-recording/audio-recording.module').then((m) => m.AudioRecordingModule),
     canActivate: [AuthGuard],
     data: {
-      roles: [ERole.ADMIN, ERole.USER],
+      roles: [ERole.ADMIN, ERole.USER, ERole.ADMIN_SISTEMA],
       breadcrumb: {
         label: 'Registro de audio',
       },
@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('../audit/audit.module').then((m) => m.AuditModule),
     canActivate: [AuthGuard],
     data: {
-      roles: [ERole.ADMIN],
+      roles: [ERole.ADMIN, ERole.ADMIN_SISTEMA],
       breadcrumb: {
         label: 'Historial',
       },
@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('../user/user.module').then((m) => m.UserModule),
     canActivate: [AuthGuard],
     data: {
-      roles: [ERole.ADMIN],
+      roles: [ERole.ADMIN, ERole.ADMIN_SISTEMA],
       breadcrumb: {
         label: 'Usuarios',
       },
@@ -44,7 +44,7 @@ const routes: Routes = [
       import('../handling-audio-recording/handling-audio-recording.module').then((m) => m.HandlingAudioRecordingModule),
     canActivate: [AuthGuard],
     data: {
-      roles: [ERole.ADMIN],
+      roles: [ERole.ADMIN, ERole.ADMIN_SISTEMA],
       breadcrumb: {
         label: 'Registros de audio',
       },

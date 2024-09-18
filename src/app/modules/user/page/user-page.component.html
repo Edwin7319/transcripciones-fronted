@@ -25,7 +25,7 @@
               [isFormButton]="false"
               buttonType="LIGHT"
               icon="pi-plus"
-              (clickAction)="openCreateOrEditModal()"
+              (clickAction)="validateMaxUsersToRegister()"
             />
           </div>
         </div>
@@ -94,7 +94,7 @@
                 >
                   <i
                     class="text-xl pi pi-user-edit text-transcription-600"
-                    (click)="openCreateOrEditModal(rowData)"
+                    (click)="validateMaxUsersToRegister(rowData)"
                   ></i>
                 </div>
               </div>

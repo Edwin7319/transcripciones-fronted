@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
   private MENU_OPTIONS: Array<IMenuItem> = [
     {
       label: 'Administración',
-      role: [ERole.ADMIN],
+      role: [ERole.ADMIN,  ERole.ADMIN_SISTEMA],
       items: [
         {
           label: 'Registro de usuarios',
@@ -40,11 +40,11 @@ export class SidebarComponent implements OnInit {
     {
       label: 'Registro de audio',
       routerLink: APP_ROUTES.audioRecording,
-      role: [ERole.ADMIN, ERole.USER],
+      role: [ERole.ADMIN, ERole.USER, ERole.ADMIN_SISTEMA],
     },
     {
       label: 'Histórico',
-      role: [ERole.ADMIN],
+      role: [ERole.ADMIN,  ERole.ADMIN_SISTEMA],
       items: [
         {
           label: 'Registro de audio',

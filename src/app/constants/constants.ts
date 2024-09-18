@@ -233,6 +233,7 @@ export enum ECookie {
 }
 
 export enum ERole {
-  ADMIN = 'Administrador',
+  ADMIN_SISTEMA = 'Administrador Sistema',
   USER = 'Usuario',
+  ADMIN = 'Administrador',
 }
