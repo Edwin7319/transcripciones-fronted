@@ -2,11 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HandlingAudioPageComponent } from './page/handling-audio-page.component';
+import { ERole } from '../../constants/constants';
+import { AuthGuard } from '../../guard/auth.guard';
 
 const routes: Routes = [
   {
     path: 'manejo-estados-audio',
     component: HandlingAudioPageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [ERole.ADMIN_SISTEMA],
+    },
   },
   {
     path: '',

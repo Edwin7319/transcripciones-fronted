@@ -31,10 +31,10 @@ export class SidebarComponent implements OnInit {
           label: 'Registro de usuarios',
           routerLink: APP_ROUTES.user,
         },
-        {
-          label: 'Carga de transcripciones',
-          routerLink: APP_ROUTES.handlingAudioRecording,
-        },
+        // {
+        //   label: 'Carga de transcripciones',
+        //   routerLink: APP_ROUTES.handlingAudioRecording,
+        // },
       ],
     },
     {
@@ -71,8 +71,20 @@ export class SidebarComponent implements OnInit {
   private filterOptionsByRole(): Array<IMenuItem> {
     const token = this._cookieService.get(ECookie.token);
     const { roles } = jwtDecode<IUserPopulated>(token);
-
     const userRoles = roles.map((rol) => rol.name.toLowerCase());
+
+    const esAdminSistema = userRoles.some(role => {
+      return role.toLowerCase() === ERole.ADMIN_SISTEMA.toLowerCase();
+    });
+
+    if (esAdminSistema && this.MENU_OPTIONS[0]?.items) {
+      this.MENU_OPTIONS[0].items.push(
+        {
+          label: 'Carga de transcripciones',
+          routerLink: APP_ROUTES.handlingAudioRecording,
+        } as IMenuItem,
+      );
+    }
 
     return this.MENU_OPTIONS.filter((option) => {
       return (option.role || []).some((role) => {
