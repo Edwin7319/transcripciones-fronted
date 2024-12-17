@@ -13,7 +13,7 @@ export class LogRestService {
     this.url = `${environment.api}/log`;
   }
 
-  getAll(schemaType: string): Observable<any> {
-    return this._httpClient.get<any>(`${this.url}/${schemaType}`);
+  getAll(schemaType: string, pageIndex: number, pageSize: number, query: string): Observable<any> {
+    return this._httpClient.get<any>(`${this.url}/${schemaType}?pageIndex=${pageIndex}&pageSize=${pageSize}&${query}`);
   }
 }

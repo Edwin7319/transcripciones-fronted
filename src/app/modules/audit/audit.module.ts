@@ -11,15 +11,6 @@ import { AuditPageComponent } from './page/audit-page.component';
 
 @NgModule({
   declarations: [AuditPageComponent],
-  imports: [
-    CommonModule,
-    AuditRoutingModule,
-    SharedModule,
-    PipesModule,
-    SharedModule,
-    TableModule,
-    TooltipModule,
-    SharedModule,
-  ],
+  imports: [CommonModule, AuditRoutingModule, PipesModule, SharedModule, TableModule, TooltipModule, SharedModule],
 })
 export class AuditModule {}
