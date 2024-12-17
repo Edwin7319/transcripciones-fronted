@@ -20,7 +20,6 @@ import { UserRoutingModule } from './user-routing.module';
     UserRoutingModule,
     SharedModule,
     PipesModule,
-    SharedModule,
     TableModule,
     TooltipModule,
     MatDialogModule,
